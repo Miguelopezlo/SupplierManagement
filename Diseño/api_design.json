@@ -1,0 +1,987 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API supplier selection system",
+    "description": "The design of the API for the supplier selection system (requirement TC_GB_04) is presented below. This consists of performing a CRUD on a supplier database, filtered by predefined criteria.|",
+    "contact": {
+      "email": "miguel.lopez.lopez@segurosbolivar.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.suppliersystem/v1/supplier/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "supplier",
+      "description": "Acces to suppliers list"
+    },
+    {
+      "name": "products",
+      "description": "Access to products list"
+    },
+    {
+      "name": "user",
+      "description": "Operations about user"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "supplier"
+        ],
+        "summary": "Get the supplier based on id",
+        "parameters": [
+          {
+            "name": "supplierId",
+            "in": "query",
+            "description": "Status values that need to be considered for filter",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Supplier"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Supplier"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Supplier not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "supplier_auth": [
+              "write:providers",
+              "read:providers"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "supplier"
+        ],
+        "summary": "Add a new supplier to the database",
+        "description": "Add a new supplier to the database",
+        "operationId": "addSupplier",
+        "requestBody": {
+          "description": "Create a new supplier in the database",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Supplier"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Supplier"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Supplier"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Supplier"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Supplier"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "supplier_auth": [
+              "write:suppliers",
+              "read:suppliers"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "supplier"
+        ],
+        "summary": "Update supplier score by id",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateSupplier",
+        "parameters": [
+          {
+            "name": "supplierId",
+            "in": "query",
+            "description": "id that need to be updated",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "score",
+            "in": "query",
+            "description": "id that need to be updated",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existent user in the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Supplier"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Supplier"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Supplier"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/supplier/findSupplierBy": {
+      "get": {
+        "tags": [
+          "supplier"
+        ],
+        "summary": "Finds supplier by score, productId or city",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "operationId": "findSupplierByStatus",
+        "parameters": [
+          {
+            "name": "score",
+            "in": "query",
+            "description": "Status values that need to be considered for filter",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "default": "available"
+            }
+          },
+          {
+            "name": "productId",
+            "in": "query",
+            "description": "Status values that need to be considered for filter",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "number",
+              "default": "available"
+            }
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "description": "Status values that need to be considered for filter",
+            "required": false,
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "default": "available"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Supplier"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Supplier"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "supplier_auth": [
+              "write:suppliers",
+              "read:suppliers"
+            ]
+          }
+        ]
+      }
+    },
+    "/supplier/{supplierId}": {
+      "get": {
+        "tags": [
+          "supplier"
+        ],
+        "summary": "Find pet by ID",
+        "description": "Returns a single pet",
+        "operationId": "getSupplierById",
+        "parameters": [
+          {
+            "name": "supplierId",
+            "in": "path",
+            "description": "ID of supplier to return",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Supplier"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Supplier"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplier"
+          },
+          "404": {
+            "description": "Supplier not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "supplier_auth": [
+              "write:suppliers",
+              "read:suppliers"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "supplier"
+        ],
+        "summary": "Creates a supplier in the database with form data",
+        "description": "",
+        "operationId": "createSupplierWithForm",
+        "parameters": [
+          {
+            "name": "supplierId",
+            "in": "path",
+            "description": "ID of supplier that needs to be updated",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "supplierName",
+            "in": "query",
+            "description": "Name of supplier that needs to be updated",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "score",
+            "in": "query",
+            "description": "Score of supplier that needs to be updated",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "supplier_auth": [
+              "write:suppliers",
+              "read:suppliers"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "supplier"
+        ],
+        "summary": "Deletes a supplier",
+        "description": "delete a supplier by id",
+        "operationId": "deleteSupplier",
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "supplierId",
+            "in": "path",
+            "description": "supplier id to delete",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid supplier value"
+          }
+        },
+        "security": [
+          {
+            "supplier_auth": [
+              "write:suppliers",
+              "read:suppliers"
+            ]
+          }
+        ]
+      }
+    },
+    "/product/selectionCriteria": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Returns products inventories by criteria",
+        "description": "Returns a map of status codes to quantities",
+        "operationId": "getInventory",
+        "parameters": [
+          {
+            "name": "selectionCriteria",
+            "in": "query",
+            "description": "criteria of product that needs to consult",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/product/productName": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Returns products inventories by criteria",
+        "description": "Returns a map of status codes to quantities",
+        "operationId": "getInventoryByCriteria",
+        "parameters": [
+          {
+            "name": "productName",
+            "in": "query",
+            "description": "criteria of product that needs to consult",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/product/createProduct": {
+      "post": {
+        "tags": [
+          "products"
+        ],
+        "summary": "Create a product in the database",
+        "description": "Create a product in the database",
+        "operationId": "createProduct",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/products"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/products"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/products"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/products"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user",
+        "description": "This can only be done by the admin logged in user.",
+        "operationId": "createUser",
+        "requestBody": {
+          "description": "Created user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into the system",
+        "description": "",
+        "operationId": "loginUser",
+        "parameters": [
+          {
+            "name": "userName",
+            "in": "query",
+            "description": "The user name for login",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userPassword",
+            "in": "query",
+            "description": "The password for login in clear text",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {
+              "X-Rate-Limit": {
+                "description": "calls per hour allowed by the user",
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "X-Expires-After": {
+                "description": "date in UTC when token expires",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "operationId": "logoutUser",
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/{userId}": {
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update user by id",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "id that need to be updated",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existent user in the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "The userId that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/contracts/{contractId}": {
+      "get": {
+        "tags": [
+          "contracts"
+        ],
+        "summary": "search and read a contract by contractId",
+        "operationId": "readContract",
+        "parameters": [
+          {
+            "name": "contractId",
+            "in": "path",
+            "description": "The contract that needs to be consulted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contracts"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contracts"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Supplier not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "supplier_auth": [
+              "write:providers",
+              "read:providers"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Supplier": {
+        "required": [
+          "companyName",
+          "contact",
+          "address",
+          "cellPhone",
+          "email",
+          "score"
+        ],
+        "type": "object",
+        "properties": {
+          "supplierId": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          },
+          "companyName": {
+            "type": "string",
+            "example": "Fachadas Elisa"
+          },
+          "contact": {
+            "type": "string",
+            "example": "Martin Lopez"
+          },
+          "address": {
+            "type": "string",
+            "example": "Cali, carrera 23 C # 20-22"
+          },
+          "score": {
+            "type": "number",
+            "description": "score assigned to the supplier",
+            "example": 7
+          }
+        },
+        "xml": {
+          "name": "supplier"
+        }
+      },
+      "products": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "number",
+            "example": 2
+          },
+          "productName": {
+            "type": "string",
+            "example": "Backend with Python"
+          },
+          "averagePrice": {
+            "type": "number",
+            "example": 200000
+          },
+          "selectionCriteria": {
+            "type": "string",
+            "example": "Product price"
+          }
+        },
+        "xml": {
+          "name": "products"
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int64",
+            "example": 10
+          },
+          "userName": {
+            "type": "string",
+            "example": "theUser"
+          },
+          "userPassword": {
+            "type": "string",
+            "example": "John1234"
+          }
+        },
+        "xml": {
+          "name": "user"
+        }
+      },
+      "Contracts": {
+        "type": "object",
+        "properties": {
+          "contractId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "contractDescription": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "tag"
+        }
+      },
+      "SelectionCriteria": {
+        "type": "object",
+        "properties": {
+          "selectionCriteriaId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "selectionCriteriaName": {
+            "type": "string"
+          },
+          "selectionCriteriaDescription": {
+            "type": "string"
+          }
+        }
+      },
+      "SelectionActivity": {
+        "type": "object",
+        "properties": {
+          "activityId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "activityName": {
+            "type": "string"
+          },
+          "activityResponsibleArea": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "Supplier": {
+        "description": "Pet object that needs to be added to the store",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Supplier"
+            }
+          },
+          "application/xml": {
+            "schema": {
+              "$ref": "#/components/schemas/Supplier"
+            }
+          }
+        }
+      },
+      "UserArray": {
+        "description": "List of user object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "supplier_auth": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://api.suppliersystem/oauth/authorize",
+            "scopes": {
+              "write:suppliers": "modify suppliers in your account",
+              "read:suppliers": "read your suppliers"
+            }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  }
+}
