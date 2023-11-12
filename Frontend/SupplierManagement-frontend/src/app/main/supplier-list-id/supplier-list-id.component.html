@@ -1,0 +1,102 @@
+<p-toast></p-toast>
+<p-table
+    [value]="suppliers"
+    [columns]="columnHeadSupplier"
+    styleClass="p-datatable-gridlines"
+    editMode="row"
+    dataKey="supplierid"
+    [tableStyle]="{ 'min-width': '50rem' }"
+>
+    <ng-template pTemplate="caption"> Lista de proveedores </ng-template>
+    <ng-template pTemplate="header" let-column>
+        <tr>
+            <th style="width: 10%" *ngFor="let col of column">
+                {{col}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-supplier let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="supplier">
+            <td>
+                {{supplier.supplierid}}
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="supplier.companyname">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{supplier.companyname}}
+                    </ng-template>
+                </p-cellEditor>   
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="supplier.contact">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{supplier.contact}}
+                    </ng-template>
+                </p-cellEditor>   
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="supplier.address">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{supplier.address}}
+                    </ng-template>
+                </p-cellEditor>   
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="supplier.celphone">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{supplier.celphone}}
+                    </ng-template>
+                </p-cellEditor>   
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="supplier.email">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{supplier.email}}
+                    </ng-template>
+                </p-cellEditor>   
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="supplier.score">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{supplier.score}}
+                    </ng-template>
+                </p-cellEditor>   
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="supplier.city">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{supplier.city}}
+                    </ng-template>
+                </p-cellEditor>   
+            </td>
+            <td>
+                <div class="flex align-items-center justify-content-center gap-2">
+                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(supplier)" class="p-button-rounded p-button-text"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(supplier,ri)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(supplier, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
