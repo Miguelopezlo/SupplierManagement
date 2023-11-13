@@ -1,0 +1,82 @@
+<p-toast></p-toast>
+<p-table
+    [value]="contract"
+    [columns]="columnHeadContracts"
+    styleClass="p-datatable-gridlines"
+    editMode="row"
+    dataKey="contractid"
+    [tableStyle]="{ 'min-width': '50rem' }"
+>
+    <ng-template pTemplate="caption"> Lista de contratos </ng-template>
+    <ng-template pTemplate="header" let-column>
+        <tr>
+            <th style="width: 10%" *ngFor="let col of column">
+                {{col}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-contract let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="contract">
+            <td>
+                {{contract.contractid}}
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="contract.contractdescription">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{contract.contractdescription}}
+                    </ng-template>
+                </p-cellEditor>   
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="contract.startdate">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{contract.startdate}}
+                    </ng-template>
+                </p-cellEditor>   
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="contract.finishdate">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{contract.finishdate}}
+                    </ng-template>
+                </p-cellEditor>   
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="contract.contractstate">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{contract.contractstate}}
+                    </ng-template>
+                </p-cellEditor>   
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="contract.productid">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{contract.productid}}
+                    </ng-template>
+                </p-cellEditor>   
+            </td>
+            <td>
+                <div class="flex align-items-center justify-content-center gap-2">
+                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(contract)" class="p-button-rounded p-button-text"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(contract,ri)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(contract, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

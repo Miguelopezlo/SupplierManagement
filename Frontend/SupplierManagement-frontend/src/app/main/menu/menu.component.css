@@ -1,0 +1,11 @@
+:host ::ng-deep .p-menu { 
+    min-height: 300px;
+}
+
+:host ::ng-deep .p-menuitem-text{
+    color: #E62020;
+}
+
+:host ::ng-deep .p-menuitem-link:hover{
+    color: #E62020;
+}
