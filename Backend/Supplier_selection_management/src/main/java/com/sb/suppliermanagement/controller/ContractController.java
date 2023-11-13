@@ -3,12 +3,17 @@ package com.sb.suppliermanagement.controller;
 import java.util.Optional;
 
 import com.sb.suppliermanagement.dto.ContractDTO;
+import com.sb.suppliermanagement.model.Contract;
+import com.sb.suppliermanagement.model.Supplier;
 import com.sb.suppliermanagement.services.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,4 +42,17 @@ public class ContractController {
 	    // Si se encuentra el contrato, devuelve una respuesta exitosa (HTTP 200) con el cuerpo del objeto DTO.
 	    return ResponseEntity.ok().body(o.get());
 	}
+	
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateStatusContract(@RequestBody Contract contract, @PathVariable Long id) {
+        Optional<Contract> o = service.findById(id);
+        if (o.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Contract contractdb = o.get();
+        contractdb.setContractstate(contract.getContractstate());
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(contractdb));
+    }
+	
 }

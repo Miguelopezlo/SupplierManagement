@@ -48,4 +48,9 @@ public class ContractServiceImpl implements ContractService {
             return Optional.empty(); // Devolvemos un Optional vacío si no se encuentra el contrato
         }
     }
+
+	@Transactional
+	public Contract save(Contract contract) {
+        return repositorio.save(contract);
+	}
 }

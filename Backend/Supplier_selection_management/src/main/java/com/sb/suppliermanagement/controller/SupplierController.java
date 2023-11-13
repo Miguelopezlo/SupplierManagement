@@ -65,7 +65,7 @@ public class SupplierController {
     }
 
     // Obtiene proveedores por ID de producto
-    @GetMapping("/Supplierbyproductid/{productid}")
+    @GetMapping("/supplierbyproductid/{productid}")
     public ResponseEntity<?> listSupplierByProductid(@PathVariable Long productid) {
         List<Supplier> o = service.getSupplierByProductid(productid);
         if (o.isEmpty()) {
