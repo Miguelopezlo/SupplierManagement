@@ -5,6 +5,7 @@ import lombok.Setter;
 
 @Getter @Setter
 public class SupplierDTO {
+	private Long supplierid;
 	private String companyname;
 	private String contact;
 	private String address;

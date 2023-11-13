@@ -54,7 +54,7 @@ public class ContractServiceImpl implements ContractService {
         return repositorio.save(contract);
 	}
 
-	@Override
+	@Transactional
 	public ContractDTO save(ContractDTO contract) {
 		 return repositorio.save(contract);
 	}

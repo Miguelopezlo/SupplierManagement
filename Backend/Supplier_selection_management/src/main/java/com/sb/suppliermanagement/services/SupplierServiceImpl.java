@@ -120,6 +120,7 @@ public class SupplierServiceImpl implements SupplierService {
         // Recorre el arreglo supplier y settea los datos al objeto DTO
         for (Supplier supplierite : supplier) {
             SupplierDTO dto = new SupplierDTO();
+            dto.setSupplierid(supplierite.getSupplierid());
             dto.setCompanyname(supplierite.getCompanyname());
             dto.setContact(supplierite.getContact());
             dto.setAddress(supplierite.getAddress());
