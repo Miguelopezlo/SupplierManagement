@@ -34,22 +34,22 @@ export class CreateContractComponent implements OnInit{
   }
 
   onRowEditInit(contract: Contract) {
-    this.clonedContract[contract.contractid as number] = { ...contract };
+    this.clonedContract[contract.contractId as number] = { ...contract };
   }
 
   onRowEditSave(contract: Contract, index: number) {
-      if (contract.contractdescription != '') {
-          delete this.clonedContract[contract.contractid as number];
+      if (contract.contractDescription != '') {
+          delete this.clonedContract[contract.contractId as number];
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Contract is loaded' });
           return this.postNewContract(contract);
       }
-      this.contracts [index]= this.clonedContract[contract.contractid as number];
-      delete this.clonedContract[contract.contractid as number];
+      this.contracts [index]= this.clonedContract[contract.contractId as number];
+      delete this.clonedContract[contract.contractId as number];
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid contract description' });
   }
 
   onRowEditCancel(contract: Contract, index: number) {
-      this.contracts [index]= this.clonedContract[contract.contractid as number];
-      delete this.clonedContract[contract.contractid as number];
+      this.contracts [index]= this.clonedContract[contract.contractId as number];
+      delete this.clonedContract[contract.contractId as number];
   }
 }

@@ -35,6 +35,7 @@ export class SupplierListIdComponent implements OnInit{
   constructor(private supplierService:SupplierService, private messageService: MessageService, private router: Router){}
 
   ngOnInit(){
+    this.option=4;
     this.dropdownOptions=[
       {name: 'Id proveedor'},
       {name: 'Calificacion'},
@@ -74,7 +75,7 @@ export class SupplierListIdComponent implements OnInit{
   }
 
   onRowEditSave(supplier: Supplier, index: number) {
-      if (supplier.score >= 0) {
+      if (supplier.score >= 0 && supplier.score<= 10) {
           delete this.clonedSuppliers[supplier.supplierid as number];
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Supplier is updated' });
           return this.updateSupplier(supplier,supplier.supplierid);

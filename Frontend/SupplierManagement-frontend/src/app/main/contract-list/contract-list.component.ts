@@ -9,6 +9,10 @@ interface Text{
   name: string;
 }
 
+interface Contrato{
+  contractstate: string;
+}
+
 @Component({
   selector: 'app-contract-list',
   templateUrl: './contract-list.component.html',
@@ -21,11 +25,15 @@ export class ContractListComponent implements OnInit{
 
   value: string;
 
-  contract!: Contract[];
+  contract: Contract[]=[];
+
+  contrato: Contrato={
+    contractstate: ''
+  };
 
   clonedContract: { [s: number]: Contract} ={};
 
-  columnHeadContracts: string [] = ['Id contrato','Nombre producto','Fecha de inicio','Fecha de finalizacion','Estado del contrato','Id producto','Acciones'];
+  columnHeadContracts: string [] = ['Id contrato','Descripcion contrato','Fecha de inicio','Fecha de finalizacion','Estado del contrato','Nombre producto','Nombre proveedor','Acciones'];
 
   constructor(private contractService: ContractService, private messageService: MessageService, private router: Router){}
 
@@ -37,7 +45,7 @@ export class ContractListComponent implements OnInit{
 
   private getContractById(id: number){
     this.contractService.getContractById(id).subscribe(response =>{
-      this.contract[0] = response;
+      this.contract.push(response)
       console.log(`GET Request for ... successful`, response);
     }, error => {
       console.error(`Error during GET request for ...`,error)
@@ -45,7 +53,8 @@ export class ContractListComponent implements OnInit{
   }
 
   private updateContract(contract: Contract,id: number){
-    this.contractService.updateContract(contract,id).subscribe(response =>{
+    this.contrato.contractstate=contract.contractState;
+    this.contractService.updateContract(this.contrato,id).subscribe(response =>{
       console.log(`PUT Request for ... successful`, response);
     }, error => {
       console.error(`Error during PUT request for ...`,error)
@@ -53,23 +62,23 @@ export class ContractListComponent implements OnInit{
   }
 
   onRowEditInit(contract: Contract) {
-    this.clonedContract[contract.contractid as number] = { ...contract };
+    this.clonedContract[contract.contractId as number] = { ...contract };
   }
 
   onRowEditSave(contract: Contract, index: number) {
-      if (contract.contractdescription != '') {
-          delete this.clonedContract[contract.contractid as number];
+      if (contract.contractDescription != '') {
+          delete this.clonedContract[contract.contractId as number];
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Contract is updated' });
-          return this.updateContract(contract,  contract.contractid);
+          return this.updateContract(contract,  contract.contractId);
       }
-      this.contract [index]= this.clonedContract[contract.contractid as number];
-      delete this.clonedContract[contract.contractid as number];
+      this.contract [index]= this.clonedContract[contract.contractId as number];
+      delete this.clonedContract[contract.contractId as number];
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid contract description' });
   }
 
   onRowEditCancel(contract: Contract, index: number) {
-      this.contract [index]= this.clonedContract[contract.contractid as number];
-      delete this.clonedContract[contract.contractid as number];
+      this.contract [index]= this.clonedContract[contract.contractId as number];
+      delete this.clonedContract[contract.contractId as number];
   }
 
 }

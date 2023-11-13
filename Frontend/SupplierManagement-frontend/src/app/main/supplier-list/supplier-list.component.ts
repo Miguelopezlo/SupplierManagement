@@ -35,6 +35,7 @@ export class SupplierListComponent implements OnInit{
   constructor(private supplierService:SupplierService, private messageService: MessageService, private router: Router){}
 
   ngOnInit(){
+    this.option=1;
     this.getSuppliersList();
     this.dropdownOptions=[
       {name: 'Todos'},
@@ -102,7 +103,7 @@ export class SupplierListComponent implements OnInit{
   }
 
   onRowEditSave(supplier: Supplier, index: number) {
-      if (supplier.score >= 0) {
+      if (supplier.score >= 0 && supplier.score<= 10) {
           delete this.clonedSuppliers[supplier.supplierid as number];
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Supplier is updated' });
           return this.updateSupplier(supplier,supplier.supplierid);
@@ -125,15 +126,15 @@ export class SupplierListComponent implements OnInit{
   onChangeDrop(event: Text){
     switch (event.name){
       case 'Todos':{
-        
+        this.option=1;
         break;
       }
       case 'Calificacion':{
-        
+        this.option=2;
         break;
       }
       case 'Ciudad':{
-        
+        this.option=3;
         break;
       }
       case 'Id proveedor':{
@@ -141,7 +142,7 @@ export class SupplierListComponent implements OnInit{
         break;
       }
       case 'Id producto':{
-        
+        this.option=5;
         return;
       }
     }

@@ -17,8 +17,8 @@ export class ContractService {
     return this.httpClient.post<Contract>(`${this.baseURL}/create`, contract)
   }
 
-  updateContract(contract: Contract, id: number): Observable<Contract>{
-    return this.httpClient.put<Contract>(`${this.baseURL}/update/${id}`,contract)
+  updateContract(contract: Object, id: number): Observable<Object>{
+    return this.httpClient.put<Object>(`${this.baseURL}/update/${id}`,contract)
   }
   
   getContractById(id: number): Observable<Contract>{

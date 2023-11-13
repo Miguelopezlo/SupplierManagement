@@ -25,7 +25,7 @@ export class ProductListComponent implements OnInit{
 
   option: number;
 
-  products!: Product[];
+  products: Product[] = [];
 
   clonedProduct: { [s: number]: Product} ={};
 
@@ -53,7 +53,7 @@ export class ProductListComponent implements OnInit{
 
   private getProductByProductId(productid: number){
     this.productService.getProductByProductId(productid).subscribe(response =>{
-      this.products[0]= response;
+      this.products.push(response);
       console.log(`GET Request for ... successful`, response);
     }, error => {
       console.error(`Error during GET request for ...`,error)
@@ -62,7 +62,7 @@ export class ProductListComponent implements OnInit{
 
   private getProductByCriteria(criteria: number){
     this.productService.getProductByCriteria(criteria).subscribe(response =>{
-      this.products[0] = response;
+      this.products.push(response);
       console.log(`GET Request for ... successful`, response);
     }, error => {
       console.error(`Error during GET request for ...`,error)
