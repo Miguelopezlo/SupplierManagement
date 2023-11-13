@@ -10,5 +10,5 @@ import com.sb.suppliermanagement.model.Contract;
 public interface ContractRepository extends JpaRepository<Contract, Long> {
 	Optional<ContractDTO> findByContractid(Long id);
 	ContractDTO save(ContractDTO contract);
-	ContractDTO saveAll(ContractDTO contract);
+	//ContractDTO saveAll(ContractDTO contract);
 }

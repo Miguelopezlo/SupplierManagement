@@ -4,12 +4,19 @@ import { SupplierListComponent } from './supplier-list/supplier-list.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ContractListComponent } from './contract-list/contract-list.component';
 import { SupplierListIdComponent } from './supplier-list-id/supplier-list-id.component';
+import { CreateContractComponent } from './create-contract/create-contract.component';
+import { CreateProductComponent } from './create-product/create-product.component';
+import { CreateSupplierComponent } from './create-supplier/create-supplier.component';
 
 const routes: Routes = [
-  {path:'suppliers', component: SupplierListComponent},
-  {path: 'products', component: ProductListComponent},
-  {path: 'contracts', component: ContractListComponent},
-  {path: 'suppliersid', component: SupplierListIdComponent}
+  {path: 'home', children: [
+    {path:'suppliers', component: SupplierListComponent},
+    {path: 'contracts', component: ContractListComponent},
+    {path: 'products', component: ProductListComponent},
+    {path: 'createsupplier', component: CreateSupplierComponent},
+    {path: 'createcontract', component: CreateContractComponent},
+    {path: 'createproduct', component: CreateProductComponent},
+  ]}
 
 ];
 

@@ -22,9 +22,30 @@ export class SupplierListIdComponent implements OnInit{
   ngOnInit(){
     
   }
-  
-  private getSuppliers(){
 
+  private getSupplierById(id: number){
+    this.supplierService.getSupplierById(id).subscribe(response =>{
+      this.suppliers.push(response);
+      console.log(`GET Request for ... successful`, response);
+    }, error => {
+      console.error(`Error during GET request for ...`,error)
+    })
+  }
+
+  private deleteSupplierById(id: number){
+    this.supplierService.deleteSupplierById(id).subscribe(response =>{
+      console.log(`DELETE Request for ... successful`, response);
+    }, error => {
+      console.error(`Error during DELETE request for ...`,error)
+    })
+  }
+
+  private updateSupplier(supplier: Supplier, id: number){
+    this.supplierService.updateSupplier(supplier,id).subscribe(response =>{
+      console.log(`PUT Request for ... successful`, response);
+    }, error => {
+      console.error(`Error during PUT request for ...`,error)
+    })
   }
 
   onRowEditInit(supplier: Supplier) {
@@ -35,11 +56,16 @@ export class SupplierListIdComponent implements OnInit{
       if (supplier.score >= 0) {
           delete this.clonedSuppliers[supplier.supplierid as number];
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Supplier is updated' });
-      } else {
-          this.suppliers[index] = this.clonedSuppliers[supplier.supplierid as number];
-          delete this.clonedSuppliers[supplier.supplierid as number];
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Score' });
+          return this.updateSupplier(supplier,supplier.supplierid);
       }
+      this.suppliers[index] = this.clonedSuppliers[supplier.supplierid as number];
+      delete this.clonedSuppliers[supplier.supplierid as number];
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Score' });
+  }
+
+  onRowEditDelete(supplier: Supplier, index: number){
+    this.suppliers.splice(index,1);
+    this.deleteSupplierById(supplier.supplierid);
   }
 
   onRowEditCancel(supplier: Supplier, index: number) {

@@ -11,7 +11,7 @@ import { MessageService } from 'primeng/api';
 })
 
 export class SupplierListComponent implements OnInit{
-  suppliers!: Supplier[];
+  suppliers: Supplier[]=[];
 
   clonedSuppliers: { [s: number]: Supplier } = {};
 
@@ -20,12 +20,58 @@ export class SupplierListComponent implements OnInit{
   constructor(private supplierService:SupplierService, private messageService: MessageService){}
 
   ngOnInit(){
-    // this.getSuppliers()
+    this.getSuppliersList();
   }
   
-  private getSuppliers(){
+  private getSuppliersList(){
     this.supplierService.getSupplierList().subscribe(response =>{
       this.suppliers = response;
+      console.log(`GET Request for ... successful`, response);
+    }, error => {
+      console.error(`Error during GET request for ...`,error)
+    })
+  }
+
+  private getSupplierByScore(score: number){
+    this.supplierService.getSupplierByScore(score).subscribe(response =>{
+      this.suppliers = response;
+      console.log(`GET Request for ... successful`, response);
+    }, error => {
+      console.error(`Error during GET request for ...`,error)
+    })
+  }
+
+  private getSupplierByCity(city: string){
+    this.supplierService.getSupplierByCity(city).subscribe(response =>{
+      this.suppliers = response;
+      console.log(`GET Request for ... successful`, response);
+    }, error => {
+      console.error(`Error during GET request for ...`,error)
+    })
+  }
+
+  private getSupplierByProductId(productid: number){
+    this.supplierService.getSupplierByProductId(productid).subscribe(response =>{
+      this.suppliers = response;
+      console.log(`GET Request for ... successful`, response);
+    }, error => {
+      console.error(`Error during GET request for ...`,error)
+    })
+  }
+
+  private deleteSupplierById(id: number){
+    this.supplierService.deleteSupplierById(id).subscribe(response =>{
+      console.log(`DELETE Request for ... successful`, response);
+    }, error => {
+      console.error(`Error during DELETE request for ...`,error)
+    })
+  }
+
+  private updateSupplier(supplier: Supplier, id: number){
+    this.supplierService.updateSupplier(supplier,id).subscribe(response =>{
+      console.log(`PUT Request for ... successful`, response);
+    }, error => {
+      console.error(`Error during PUT request for ...`,error)
     })
   }
 
@@ -37,13 +83,17 @@ export class SupplierListComponent implements OnInit{
       if (supplier.score >= 0) {
           delete this.clonedSuppliers[supplier.supplierid as number];
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Supplier is updated' });
-          return;
+          return this.updateSupplier(supplier,supplier.supplierid);
       }
-
       this.suppliers[index] = this.clonedSuppliers[supplier.supplierid as number];
       delete this.clonedSuppliers[supplier.supplierid as number];
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Score' });
-}
+  }
+
+  onRowEditDelete(supplier: Supplier, index: number){
+    this.suppliers.splice(index,1);
+    this.deleteSupplierById(supplier.supplierid);
+  }
 
   onRowEditCancel(supplier: Supplier, index: number) {
       this.suppliers[index] = this.clonedSuppliers[supplier.supplierid as number];

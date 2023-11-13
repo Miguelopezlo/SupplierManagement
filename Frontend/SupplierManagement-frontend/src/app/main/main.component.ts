@@ -10,15 +10,4 @@ import { MessageService } from 'primeng/api';
 export class MainComponent {
   title = 'Sistema de gestión de proveedores';
 
-
-  // myUploader(event: { files: File[]; }, form: any) {
-  //   console.log('Reading file...');
-  //   let file = event.files[0];
-  //   this.fileService.postSupplierList(file).subscribe(
-  //     (result: any) => {
-  //       console.log("Archivo cargado")
-  //     }
-  //   )
-  //   form.clear();
-  // }
 }

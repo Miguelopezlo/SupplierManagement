@@ -26,9 +26,6 @@ export class SearchBarComponent {
       this.dropdownOptions = newOptions;
     });
 
-    this.dropdownOptions= [
-      {name: ''}
-    ];
   }
 
   onChangeDrop(event: DropdownChangeEvent){

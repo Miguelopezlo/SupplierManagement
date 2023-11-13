@@ -9,7 +9,7 @@ import { Supplier } from './supplier';
 export class SupplierService {
   
   //Esta URL retorna el listado de todos los proveedores
-  private baseURL = "http://localhost:8080/api/v1/Supplier"
+  private baseURL = "http://localhost:8080/api/v1/supplier"
 
   constructor(private httpClient: HttpClient) { }
 
@@ -24,7 +24,7 @@ export class SupplierService {
   }
 
   updateSupplier(supplier: Supplier, id: number): Observable<Supplier>{
-    return this.httpClient.put<Supplier>(`${this.baseURL}/update/{id}`,supplier)
+    return this.httpClient.put<Supplier>(`${this.baseURL}/update/${id}`,supplier)
   }
 
   //Este método nos sirve para obtener la lista de todos los proveedores
@@ -32,8 +32,8 @@ export class SupplierService {
     return this.httpClient.get<Supplier[]>(`${this.baseURL}/all`)
   }
 
-  getSupplierById(id: number): Observable<Supplier>{
-    return this.httpClient.get<Supplier>(`${this.baseURL}/id/${id}`)
+  getSupplierById(id: number): Observable<any>{
+    return this.httpClient.get<any>(`${this.baseURL}/id/${id}`)
   }
 
   getSupplierByScore(score: number): Observable<Supplier[]>{
@@ -45,10 +45,10 @@ export class SupplierService {
   }
 
   getSupplierByProductId(productId: number): Observable<Supplier[]>{
-    return this.httpClient.get<Supplier[]>(`${this.baseURL}/Productid/${productId}`)
+    return this.httpClient.get<Supplier[]>(`${this.baseURL}/supplierbyproductid/${productId}`)
   }
 
-  deleteSupplierId(id: number): Observable<Supplier>{
+  deleteSupplierById(id: number): Observable<Supplier>{
     return this.httpClient.delete<Supplier>(`${this.baseURL}/delete/${id}`)
   }
   

@@ -9,23 +9,23 @@ import { Product } from './product';
 export class ProductService {
 
   //Esta URL retorna el listado de todos los proveedores
-  private baseURL = "http://localhost:8080/api/v1/Product"
+  private baseURL = "http://localhost:8080/api/v1/product"
 
   constructor(private httpClient: HttpClient) { }
 
-  postNewContract(product: Product): Observable<Product>{
+  postNewProduct(product: Product): Observable<Product>{
     return this.httpClient.post<Product>(`${this.baseURL}/create`,product)
   }
 
-  getContractList(): Observable<Product[]>{
+  getProductList(): Observable<Product[]>{
     return this.httpClient.get<Product[]>(`${this.baseURL}/all`)
   }
 
-  getContractByProductId(productid: number): Observable<Product>{
+  getProductByProductId(productid: number): Observable<Product>{
     return this.httpClient.get<Product>(`${this.baseURL}/productid/${productid}`)
   }
 
-  getContractByCriteria(criteria: number): Observable<Product>{
+  getProductByCriteria(criteria: number): Observable<Product>{
     return this.httpClient.get<Product>(`${this.baseURL}/criteria/${criteria}`)
   }
   

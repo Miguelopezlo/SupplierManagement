@@ -21,9 +21,12 @@ export class MenuComponent{
       {
         label: "Opciones",
         items: [
-          {label: "Buscar proveedor", routerLink: 'suppliers', command: () => {this.dropDownText(1)}},
-          {label: "Buscar contrato", routerLink: 'products', command: () => {this.dropDownText(2)}},
-          {label: "Buscar producto", routerLink: 'contracts', command: () => {this.dropDownText(3)}}
+          {label: "Buscar proveedor", routerLink: 'home/suppliers', command: () => {this.dropDownText(1)}},
+          {label: "Buscar contrato", routerLink: 'home/contracts', command: () => {this.dropDownText(2)}},
+          {label: "Buscar producto", routerLink: 'home/products', command: () => {this.dropDownText(3)}},
+          {label: "Crear proveedor", routerLink: 'home/createsupplier'},
+          {label: "Crear contrato", routerLink: 'home/createcontract'},
+          {label: "Crear producto", routerLink: 'home/createproduct'}
         ]
       }
     ];
@@ -34,7 +37,8 @@ export class MenuComponent{
       case 1:{
         this.dropText=[
           {name: 'Ciudad'},
-          {name: 'Id proveedor'}
+          {name: 'Id proveedor'},
+          {name: 'Mostrar todos'}
         ];
         break;
       }
@@ -47,7 +51,8 @@ export class MenuComponent{
       case 3:{
         this.dropText=[
           {name: 'Id producto'},
-          {name: 'Criterio de seleccion'}
+          {name: 'Criterio de seleccion'},
+          {name: 'Mostrar todos'}
         ];
         break;
       }

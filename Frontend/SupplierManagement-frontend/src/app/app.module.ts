@@ -27,6 +27,9 @@ import { SupplierListIdComponent } from './main/supplier-list-id/supplier-list-i
 import { MainComponent } from './main/main.component';
 import { LoginComponent } from './login/login.component';
 import { MainModule } from './main/main.module';
+import { CreateContractComponent } from './main/create-contract/create-contract.component';
+import { CreateProductComponent } from './main/create-product/create-product.component';
+import { CreateSupplierComponent } from './main/create-supplier/create-supplier.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,9 @@ import { MainModule } from './main/main.module';
     SupplierListIdComponent,
     MainComponent,
     LoginComponent,
+    CreateContractComponent,
+    CreateProductComponent,
+    CreateSupplierComponent,
   ],
   imports: [
     BrowserModule,
