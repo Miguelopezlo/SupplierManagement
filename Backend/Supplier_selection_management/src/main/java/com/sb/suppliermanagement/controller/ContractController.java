@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +43,7 @@ public class ContractController {
 	    // Si se encuentra el contrato, devuelve una respuesta exitosa (HTTP 200) con el cuerpo del objeto DTO.
 	    return ResponseEntity.ok().body(o.get());
 	}
-	
+	//Actualizacion del estado del contrato
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateStatusContract(@RequestBody Contract contract, @PathVariable Long id) {
         Optional<Contract> o = service.findById(id);
@@ -53,6 +54,12 @@ public class ContractController {
         Contract contractdb = o.get();
         contractdb.setContractstate(contract.getContractstate());
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(contractdb));
+    }
+    //creación de contrato
+    @PostMapping("/create")
+    public ResponseEntity<?> createContract(@RequestBody ContractDTO contract) {
+        ContractDTO contractdb = service.save(contract);
+        return ResponseEntity.status(HttpStatus.CREATED).body(contractdb);
     }
 	
 }

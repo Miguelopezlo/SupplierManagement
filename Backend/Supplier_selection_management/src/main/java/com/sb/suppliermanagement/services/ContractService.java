@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.sb.suppliermanagement.dto.ContractDTO;
 import com.sb.suppliermanagement.model.Contract;
+import com.sb.suppliermanagement.model.Supplier;
 
 
 public interface ContractService {
@@ -13,6 +14,7 @@ public interface ContractService {
 	public Optional<Contract> findById(Long id);
 	public Optional<ContractDTO> findByContractid(Long id);
 	public Contract save(Contract contract);
+	public ContractDTO save(ContractDTO contract);
 	
 
 }
