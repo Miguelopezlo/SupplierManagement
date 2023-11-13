@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Supplier } from '../../services/supplier/supplier';
 import { SupplierService } from '../../services/supplier/supplier.service';
 import { MessageService } from 'primeng/api';
+import { DropdownChangeEvent } from 'primeng/dropdown';
+import { Router } from '@angular/router';
+
+interface Text{
+  name: string;
+}
 
 @Component({
   selector: 'app-supplier-list',
@@ -11,16 +17,32 @@ import { MessageService } from 'primeng/api';
 })
 
 export class SupplierListComponent implements OnInit{
+
+  dropdownOptions: Text[];
+
+  value: string;
+
+  selectedItem: Text={} as Text;
+
+  option: number;
+
   suppliers: Supplier[]=[];
 
   clonedSuppliers: { [s: number]: Supplier } = {};
 
   columnHeadSupplier: string[]= ['Nombre de empresa','Nombre de contacto','Dirección','Telefono','E-mail','Calificacion','Ciudad','Acciones'];
 
-  constructor(private supplierService:SupplierService, private messageService: MessageService){}
+  constructor(private supplierService:SupplierService, private messageService: MessageService, private router: Router){}
 
   ngOnInit(){
     this.getSuppliersList();
+    this.dropdownOptions=[
+      {name: 'Todos'},
+      {name: 'Calificacion'},
+      {name: 'Ciudad'},
+      {name: 'Id proveedor'},
+      {name: 'Id producto'}
+    ];
   }
   
   private getSuppliersList(){
@@ -99,5 +121,29 @@ export class SupplierListComponent implements OnInit{
       this.suppliers[index] = this.clonedSuppliers[supplier.supplierid as number];
       delete this.clonedSuppliers[supplier.supplierid as number];
   }
-    
+
+  onChangeDrop(event: Text){
+    switch (event.name){
+      case 'Todos':{
+        
+        break;
+      }
+      case 'Calificacion':{
+        
+        break;
+      }
+      case 'Ciudad':{
+        
+        break;
+      }
+      case 'Id proveedor':{
+        this.router.navigate(['home/suppliersid']);
+        break;
+      }
+      case 'Id producto':{
+        
+        return;
+      }
+    }
+  }
 }

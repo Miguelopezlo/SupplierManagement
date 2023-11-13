@@ -34,7 +34,7 @@ export class CreateSupplierComponent implements OnInit{
     })
   }
 
-    private postSupplierList(event: { files: File[]; }, form: any) {
+  protected postSupplierList(event: { files: File[]; }, form: any) {
     console.log('Reading file...');
     let file = event.files[0];
     this.supplierService.postSupplierList(file).subscribe(response =>{

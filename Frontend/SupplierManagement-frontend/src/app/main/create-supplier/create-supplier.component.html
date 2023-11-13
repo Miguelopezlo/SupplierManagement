@@ -1,4 +1,7 @@
 <p-toast></p-toast>
+<div class="content">
+    <p-fileUpload #form name="myfile[]" mode="basic" chooseLabel="Subir" [customUpload]="true"  [maxFileSize]="10000000" (uploadHandler)="postSupplierList($event,form)"></p-fileUpload>
+</div>
 <p-table #form
     [value]="suppliers"
     [columns]="columnHeadSupplier"

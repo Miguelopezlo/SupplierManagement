@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../services/product/product';
 import { ProductService } from '../../services/product/product.service';
 import { MessageService } from 'primeng/api';
+import { DropdownChangeEvent } from 'primeng/dropdown';
+import { Router } from '@angular/router';
+
+interface Text{
+  name: string;
+}
 
 @Component({
   selector: 'app-product-list',
@@ -9,14 +15,32 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./product-list.component.css'],
   providers: [MessageService]
 })
-export class ProductListComponent{
+export class ProductListComponent implements OnInit{
+
+  dropdownOptions: Text[];
+
+  value: string;
+
+  selectedItem: Text= {} as Text;
+
+  option: number;
+
   products!: Product[];
 
   clonedProduct: { [s: number]: Product} ={};
 
   columnHeadProducts: string[] = ['ID Producto','Nombre producto','Precio promedio','Criterio de seleccion','Actividad de seleccion'];
 
-  constructor(private productService: ProductService, private messageService: MessageService){}
+  constructor(private productService: ProductService, private messageService: MessageService, private router: Router){}
+
+  ngOnInit() {
+    this.getProductList();
+    this.dropdownOptions=[
+      {name: 'Todos'},
+      {name: 'Id producto'},
+      {name: 'Criterio de seleccion'},
+    ];
+  }
 
   private getProductList(){
     this.productService.getProductList().subscribe(response =>{
@@ -64,5 +88,22 @@ export class ProductListComponent{
   //     this.products[index] = this.clonedProduct[product.productid as number];
   //     delete this.clonedProduct[product.productid as number];
   // }
+
+  onChangeDrop(event: Text){
+    switch (event.name){
+      case 'Todos':{
+        
+        break;
+      }
+      case 'Id producto':{
+        
+        break;
+      }
+      case 'Criterio de seleccion':{
+
+        break;
+      }
+    }
+  }
 
 }

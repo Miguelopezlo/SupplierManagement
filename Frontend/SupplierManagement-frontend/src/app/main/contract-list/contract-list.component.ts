@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Contract } from '../../services/contract/contract';
 import { ContractService } from '../../services/contract/contract.service';
 import { MessageService } from 'primeng/api';
+import { DropdownChangeEvent } from 'primeng/dropdown';
+import { Router } from '@angular/router';
+
+interface Text{
+  name: string;
+}
 
 @Component({
   selector: 'app-contract-list',
@@ -10,17 +16,23 @@ import { MessageService } from 'primeng/api';
   
 })
 export class ContractListComponent implements OnInit{
-  
+
+  dropdownOptions: Text[];
+
+  value: string;
+
   contract!: Contract[];
 
   clonedContract: { [s: number]: Contract} ={};
 
   columnHeadContracts: string [] = ['Id contrato','Nombre producto','Fecha de inicio','Fecha de finalizacion','Estado del contrato','Id producto','Acciones'];
 
-  constructor(private contractService: ContractService, private messageService: MessageService){}
+  constructor(private contractService: ContractService, private messageService: MessageService, private router: Router){}
 
   ngOnInit(){
-    
+    this.dropdownOptions=[
+      {name: 'Id contrato'}
+    ];
   }
 
   private getContractById(id: number){

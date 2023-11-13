@@ -4,11 +4,7 @@
     </div>
     <div class="content">
       <h1 class="text-center">{{title}}</h1>
-      <div class="search-bar">
-        <app-search-bar></app-search-bar>
-      </div>
       <p-toast></p-toast>
-      <!-- <p-fileUpload #form name="myfile[]" mode="basic" chooseLabel="Choose" [customUpload]="true"  [maxFileSize]="10000000" (uploadHandler)="myUploader($event,form)"></p-fileUpload> -->
       <div class="table">
         <router-outlet></router-outlet>
       </div>

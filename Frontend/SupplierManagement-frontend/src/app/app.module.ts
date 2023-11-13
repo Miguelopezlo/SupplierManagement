@@ -19,7 +19,6 @@ import { DialogModule} from 'primeng/dialog';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SupplierListComponent } from './main/supplier-list/supplier-list.component';
-import { SearchBarComponent } from './main/search-bar/search-bar.component';
 import { ProductListComponent } from './main/product-list/product-list.component';
 import { ContractListComponent } from './main/contract-list/contract-list.component';
 import { MenuComponent } from './main/menu/menu.component';
@@ -35,7 +34,6 @@ import { CreateSupplierComponent } from './main/create-supplier/create-supplier.
   declarations: [
     AppComponent,
     SupplierListComponent,
-    SearchBarComponent,
     ProductListComponent,
     ContractListComponent,
     MenuComponent,
