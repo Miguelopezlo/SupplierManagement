@@ -38,9 +38,11 @@ public class ContractServiceImpl implements ContractService {
             // Obtener los nombres de las relaciones
             if (contractObj.getProductid() != null) {
                 dto.setProductName(contractObj.getProductid().getProductname());
+                dto.setProductId(contractObj.getProductid().getProductid());
             }
             if (contractObj.getSupplierid() != null) {
                 dto.setSupplierName(contractObj.getSupplierid().getCompanyname());
+                dto.setSupplierId(contractObj.getSupplierid().getSupplierid());
             }
 
             return Optional.of(dto); // Devolvemos un Optional que contiene el DTO

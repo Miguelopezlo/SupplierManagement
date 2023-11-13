@@ -13,4 +13,6 @@ public class ContractDTO {
 	private String contractState;
 	private String supplierName;
 	private String productName;
+	private Long supplierId;
+	private Long productId;
 }
