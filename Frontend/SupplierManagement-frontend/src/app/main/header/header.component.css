@@ -1,0 +1,23 @@
+:host ::ng-deep .p-menubar{
+    background-color: white;
+    border-color: white;
+}
+
+:host ::ng-deep .p-menuitem-text{
+    font-size: 18px;
+    font-weight: bold;
+    color: #E62020;
+}
+
+:host ::ng-deep .p-menuitem-link:hover{
+    color: #E62020;
+}
+
+:host ::ng-deep .p-menuitem-icon{
+    color: #E62020;
+}
+
+header{
+    width: 150px;
+    float: right;
+}

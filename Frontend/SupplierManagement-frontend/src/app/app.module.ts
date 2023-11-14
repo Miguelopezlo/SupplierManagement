@@ -29,6 +29,8 @@ import { MainModule } from './main/main.module';
 import { CreateContractComponent } from './main/create-contract/create-contract.component';
 import { CreateProductComponent } from './main/create-product/create-product.component';
 import { CreateSupplierComponent } from './main/create-supplier/create-supplier.component';
+import { HeaderComponent } from './main/header/header.component';
+
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { CreateSupplierComponent } from './main/create-supplier/create-supplier.
     CreateContractComponent,
     CreateProductComponent,
     CreateSupplierComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
