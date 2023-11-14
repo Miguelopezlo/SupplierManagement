@@ -4,7 +4,7 @@
     <p-dropdown [options]="dropdownOptions" [autoDisplayFirst]=false (onChange)="onChangeDrop($event)"></p-dropdown>
     <span class="p-input-icon-right">
         <i class="pi pi-search"></i>
-        <input type="text" pInputText [(ngModel)]="value" />
+        <input type="text" pInputText [(ngModel)]="value" (keydown.enter)="handleEnterKey()"/>
     </span>
 </div>
 <p-table
@@ -26,32 +26,32 @@
     <ng-template pTemplate="body" let-contract let-editing="editing" let-ri="rowIndex">
         <tr [pEditableRow]="contract">
             <td>
-                {{contract.contractId}}
+                {{contract.contractid}}
             </td>
             <td>
-                {{contract.contractDescription}}
+                {{contract.contractdescription}}
             </td>
             <td>
-                {{contract.startDate}}
+                {{contract.startdate}}
             </td>
             <td>
-                {{contract.finishDate}}
+                {{contract.finishdate}}
             </td>
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="contract.contractState">
+                        <input pInputText type="text" [(ngModel)]="contract.contractstate">
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{contract.contractState}}
+                        {{contract.contractstate}}
                     </ng-template>
                 </p-cellEditor>   
             </td>
             <td>
-                {{contract.productName}}
+                {{contract.productname}}
             </td>
             <td>
-                {{contract.supplierName}}
+                {{contract.suppliername}}
             </td>
             <td>
                 <div class="flex align-items-center justify-content-center gap-2">

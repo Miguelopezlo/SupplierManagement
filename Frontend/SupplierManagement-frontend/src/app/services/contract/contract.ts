@@ -1,12 +1,11 @@
 export class Contract {
-    contractId: number;
-    contractDescription: string;
-    startDate: string;
-    finishDate: string;
-    contractState: string;
-    productName: string;
-    supplierName: string;
-    productId: string;
-    supplierId: string;
+    contractid: number;
+    contractdescription: string;
+    startdate: string;
+    finishdate: string;
+    contractstate: string;
+    productname: string;
+    suppliername: string;
+    productid: string;
+    supplierid: string;
 }
-
