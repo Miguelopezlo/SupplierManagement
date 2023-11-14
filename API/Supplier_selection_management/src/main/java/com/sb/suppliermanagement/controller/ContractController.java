@@ -5,7 +5,6 @@ import java.util.Optional;
 import com.sb.suppliermanagement.dto.ContractDTO;
 import com.sb.suppliermanagement.model.Contract;
 import com.sb.suppliermanagement.model.ContractInsert;
-import com.sb.suppliermanagement.model.Supplier;
 import com.sb.suppliermanagement.services.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

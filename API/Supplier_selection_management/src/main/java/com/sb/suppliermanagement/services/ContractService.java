@@ -2,7 +2,6 @@ package com.sb.suppliermanagement.services;
 
 
 import java.util.Optional;
-import org.springframework.data.repository.query.Param;
 import com.sb.suppliermanagement.dto.ContractDTO;
 import com.sb.suppliermanagement.model.Contract;
 import com.sb.suppliermanagement.model.ContractInsert;
