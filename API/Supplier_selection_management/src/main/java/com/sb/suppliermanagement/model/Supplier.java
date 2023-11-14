@@ -30,7 +30,6 @@ public class Supplier implements Serializable{
 	private static final long serialVersionUID = -3334125259893004669L;
 
 	@Id
-    @JsonIgnore
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "supplier_secuence")
 	@SequenceGenerator(name = "supplier_secuence", sequenceName = "supplier_secuence", allocationSize = 1)
 	@Column(name="supplierid")

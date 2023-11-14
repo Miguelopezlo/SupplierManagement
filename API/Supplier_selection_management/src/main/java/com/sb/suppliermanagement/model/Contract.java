@@ -41,10 +41,10 @@ public class Contract implements Serializable{
 	String contractdescription;
 	
 	@Column(name="startdate")
-	LocalDate startdate;
+	String startdate;
 	
 	@Column(name="finishdate")
-	LocalDate finishdate;
+	String finishdate;
 	
 	@Column(name="contractstate")
 	String contractstate;
