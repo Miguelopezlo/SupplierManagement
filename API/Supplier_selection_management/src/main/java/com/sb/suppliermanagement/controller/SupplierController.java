@@ -1,8 +1,7 @@
 package com.sb.suppliermanagement.controller;
+
 import java.util.List;
 import java.util.Optional;
-
-import com.sb.suppliermanagement.dto.SupplierDTO;
 import com.sb.suppliermanagement.dto.SupplierProcessingDTO;
 import com.sb.suppliermanagement.model.Supplier;
 import com.sb.suppliermanagement.services.SupplierService;

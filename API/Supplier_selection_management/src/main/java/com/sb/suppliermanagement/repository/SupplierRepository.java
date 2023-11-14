@@ -1,13 +1,9 @@
 package com.sb.suppliermanagement.repository;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
-import com.sb.suppliermanagement.dto.SupplierDTO;
 import com.sb.suppliermanagement.model.Supplier;
 
 

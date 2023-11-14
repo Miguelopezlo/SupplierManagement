@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "https://api.suppliersystem/v1/supplier/"
+      "url": "https://api.suppliersystem/v1/suppliermanagement/"
     }
   ],
   "tags": [
@@ -28,24 +28,12 @@
     }
   ],
   "paths": {
-    "/": {
+    "/supplier/all": {
       "get": {
         "tags": [
           "supplier"
         ],
-        "summary": "Get the supplier based on id",
-        "parameters": [
-          {
-            "name": "supplierId",
-            "in": "query",
-            "description": "Status values that need to be considered for filter",
-            "required": true,
-            "explode": true,
-            "schema": {
-              "type": "number"
-            }
-          }
-        ],
+        "summary": "Get the all the suppliers on list",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -61,15 +49,6 @@
                 }
               }
             }
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Supplier not found"
-          },
-          "405": {
-            "description": "Validation exception"
           }
         },
         "security": [
@@ -80,7 +59,60 @@
             ]
           }
         ]
-      },
+      }
+    },
+    "/supplier/create/many": {
+      "post": {
+        "tags": [
+          "supplier"
+        ],
+        "summary": "Creates a supplier in the database with form data",
+        "description": "",
+        "operationId": "createSupplierWithForm",
+        "parameters": [
+          {
+            "name": "supplierId",
+            "in": "query",
+            "description": "ID of supplier that needs to be updated",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "supplierName",
+            "in": "query",
+            "description": "Name of supplier that needs to be updated",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "score",
+            "in": "query",
+            "description": "Score of supplier that needs to be updated",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "supplier_auth": [
+              "write:suppliers",
+              "read:suppliers"
+            ]
+          }
+        ]
+      }
+    },
+    "/supplier/create": {
       "post": {
         "tags": [
           "supplier"
@@ -137,7 +169,9 @@
             ]
           }
         ]
-      },
+      }
+    },
+    "/supplier/update/{id}": {
       "put": {
         "tags": [
           "supplier"
@@ -147,8 +181,8 @@
         "operationId": "updateSupplier",
         "parameters": [
           {
-            "name": "supplierId",
-            "in": "query",
+            "name": "id",
+            "in": "path",
             "description": "id that need to be updated",
             "required": true,
             "schema": {
@@ -192,7 +226,7 @@
         }
       }
     },
-    "/supplier/findSupplierBy": {
+    "/supplier/supplierbyproductid/{productid}": {
       "get": {
         "tags": [
           "supplier"
@@ -202,35 +236,13 @@
         "operationId": "findSupplierByStatus",
         "parameters": [
           {
-            "name": "score",
-            "in": "query",
+            "name": "productid",
+            "in": "path",
             "description": "Status values that need to be considered for filter",
-            "required": false,
+            "required": true,
             "explode": true,
             "schema": {
-              "type": "number",
-              "default": "available"
-            }
-          },
-          {
-            "name": "productId",
-            "in": "query",
-            "description": "Status values that need to be considered for filter",
-            "required": false,
-            "explode": true,
-            "schema": {
-              "type": "number",
-              "default": "available"
-            }
-          },
-          {
-            "name": "city",
-            "in": "query",
-            "description": "Status values that need to be considered for filter",
-            "required": false,
-            "explode": true,
-            "schema": {
-              "type": "string",
+              "type": "integer",
               "default": "available"
             }
           }
@@ -271,29 +283,27 @@
         ]
       }
     },
-    "/supplier/{supplierId}": {
+    "/supplier/id/{id}": {
       "get": {
         "tags": [
           "supplier"
         ],
-        "summary": "Find pet by ID",
-        "description": "Returns a single pet",
-        "operationId": "getSupplierById",
+        "summary": "Get the supplier based on id",
         "parameters": [
           {
-            "name": "supplierId",
+            "name": "id",
             "in": "path",
-            "description": "ID of supplier to return",
+            "description": "Status values that need to be considered for filter",
             "required": true,
+            "explode": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "integer"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "successful operation",
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
@@ -308,73 +318,26 @@
             }
           },
           "400": {
-            "description": "Invalid ID supplier"
+            "description": "Invalid ID supplied"
           },
           "404": {
             "description": "Supplier not found"
-          }
-        },
-        "security": [
-          {
-            "api_key": []
           },
-          {
-            "supplier_auth": [
-              "write:suppliers",
-              "read:suppliers"
-            ]
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "supplier"
-        ],
-        "summary": "Creates a supplier in the database with form data",
-        "description": "",
-        "operationId": "createSupplierWithForm",
-        "parameters": [
-          {
-            "name": "supplierId",
-            "in": "path",
-            "description": "ID of supplier that needs to be updated",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          },
-          {
-            "name": "supplierName",
-            "in": "query",
-            "description": "Name of supplier that needs to be updated",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "score",
-            "in": "query",
-            "description": "Score of supplier that needs to be updated",
-            "schema": {
-              "type": "number"
-            }
-          }
-        ],
-        "responses": {
           "405": {
-            "description": "Invalid input"
+            "description": "Validation exception"
           }
         },
         "security": [
           {
             "supplier_auth": [
-              "write:suppliers",
-              "read:suppliers"
+              "write:providers",
+              "read:providers"
             ]
           }
         ]
-      },
+      }
+    },
+    "/supplier/delete/{id}": {
       "delete": {
         "tags": [
           "supplier"
@@ -384,22 +347,22 @@
         "operationId": "deleteSupplier",
         "parameters": [
           {
-            "name": "api_key",
-            "in": "header",
-            "description": "",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "supplierId",
+            "name": "id",
             "in": "path",
             "description": "supplier id to delete",
             "required": true,
             "schema": {
               "type": "integer",
               "format": "int64"
+            }
+          },
+          {
+            "name": "api_key",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -418,7 +381,7 @@
         ]
       }
     },
-    "/product/selectionCriteria": {
+    "/product/criteria/{criteria}": {
       "get": {
         "tags": [
           "products"
@@ -428,12 +391,12 @@
         "operationId": "getInventory",
         "parameters": [
           {
-            "name": "selectionCriteria",
-            "in": "query",
+            "name": "criteria",
+            "in": "path",
             "description": "criteria of product that needs to consult",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           }
         ],
@@ -460,22 +423,22 @@
         ]
       }
     },
-    "/product/productName": {
+    "/productid/{productid}": {
       "get": {
         "tags": [
           "products"
         ],
-        "summary": "Returns products inventories by criteria",
+        "summary": "Returns products inventories by name",
         "description": "Returns a map of status codes to quantities",
         "operationId": "getInventoryByCriteria",
         "parameters": [
           {
-            "name": "productName",
-            "in": "query",
-            "description": "criteria of product that needs to consult",
+            "name": "productid",
+            "in": "path",
+            "description": "Name of product that needs to consult",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer"
             }
           }
         ],
@@ -502,7 +465,7 @@
         ]
       }
     },
-    "/product/createProduct": {
+    "/product/create": {
       "post": {
         "tags": [
           "products"
@@ -544,6 +507,168 @@
             "description": "Invalid input"
           }
         }
+      }
+    },
+    "/contract/create": {
+      "get": {
+        "tags": [
+          "contracts"
+        ],
+        "summary": "search and read a contract by contractId",
+        "operationId": "createContract",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "The contract that needs to be consulted",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contracts"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contracts"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Supplier not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "supplier_auth": [
+              "write:providers",
+              "read:providers"
+            ]
+          }
+        ]
+      }
+    },
+    "/contract/{id}": {
+      "get": {
+        "tags": [
+          "contracts"
+        ],
+        "summary": "search and read a contract by contractId",
+        "operationId": "readContract",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The contract that needs to be consulted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contracts"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contracts"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Supplier not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "supplier_auth": [
+              "write:providers",
+              "read:providers"
+            ]
+          }
+        ]
+      }
+    },
+    "/contract/update/{id}": {
+      "get": {
+        "tags": [
+          "contracts"
+        ],
+        "summary": "update state for one contract",
+        "operationId": "updateStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "update state for one contract",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contracts"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Contracts"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Supplier not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        },
+        "security": [
+          {
+            "supplier_auth": [
+              "write:providers",
+              "read:providers"
+            ]
+          }
+        ]
       }
     },
     "/user": {
@@ -746,60 +871,6 @@
             "description": "User not found"
           }
         }
-      }
-    },
-    "/contracts/{contractId}": {
-      "get": {
-        "tags": [
-          "contracts"
-        ],
-        "summary": "search and read a contract by contractId",
-        "operationId": "readContract",
-        "parameters": [
-          {
-            "name": "contractId",
-            "in": "path",
-            "description": "The contract that needs to be consulted",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Contracts"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/Contracts"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Supplier not found"
-          },
-          "405": {
-            "description": "Validation exception"
-          }
-        },
-        "security": [
-          {
-            "supplier_auth": [
-              "write:providers",
-              "read:providers"
-            ]
-          }
-        ]
       }
     }
   },

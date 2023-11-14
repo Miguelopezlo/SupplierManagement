@@ -1,6 +1,5 @@
 package com.sb.suppliermanagement.model;
 
-import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
