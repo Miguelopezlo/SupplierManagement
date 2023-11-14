@@ -1,12 +1,40 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard} from './services/auth/auth.guard';
 import { SupplierListComponent } from './main/supplier-list/supplier-list.component';
-
+import { SupplierListIdComponent } from './main/supplier-list-id/supplier-list-id.component';
+import { ContractListComponent } from './main/contract-list/contract-list.component';
+import { ProductListComponent } from './main/product-list/product-list.component';
+import { CreateSupplierComponent } from './main/create-supplier/create-supplier.component';
+import { CreateContractComponent } from './main/create-contract/create-contract.component';
+import { CreateProductComponent } from './main/create-product/create-product.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: '', redirectTo: '/login', pathMatch: 'full'}
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
+
+  {path: 'home', canActivate: [AuthGuard], children: [
+    {path:'suppliers', component: SupplierListComponent, children: [
+      {path: 'all',component: SupplierListComponent},
+      {path: 'score',component: SupplierListComponent},
+      {path: 'city',component: SupplierListComponent},
+      {path: 'productid',component: SupplierListComponent},
+    ]},
+    {path: 'suppliersid', component: SupplierListIdComponent},
+    {path: 'contracts', canActivate: [AuthGuard], component: ContractListComponent, children:[
+      {path: 'contractid',component: ContractListComponent},
+    ]},
+    {path: 'products', canActivate: [AuthGuard], component: ProductListComponent, children:[
+      {path: 'all',component: ProductListComponent},
+      {path: 'productid',component: ProductListComponent},
+      {path: 'criteria',component: ProductListComponent},
+    ]},
+    {path: 'createsupplier', component: CreateSupplierComponent, canActivate: [AuthGuard]},
+    {path: 'createcontract', component: CreateContractComponent, canActivate: [AuthGuard]},
+    {path: 'createproduct', component: CreateProductComponent, canActivate: [AuthGuard]},
+  ]},
+  {path: '**', redirectTo: 'login' },
 ];
 
 @NgModule({

@@ -15,6 +15,7 @@ import { ToastModule} from 'primeng/toast';
 import { PasswordModule } from 'primeng/password';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DialogModule} from 'primeng/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -64,7 +65,8 @@ import { HeaderComponent } from './main/header/header.component';
     RouterModule,
     BrowserAnimationsModule,
     FormsModule,
-    MainModule
+    MainModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

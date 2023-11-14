@@ -1,10 +1,22 @@
-<div class="p-inputgroup">
-    <span class="p-inputgroup-addon">
-        <i class="pi pi-user"></i>
-    </span>
-    <input pInputText placeholder="Username" />
-</div>
-<div class="p-inputgroup">
-    <span class="p-inputgroup-addon">Password</span>
-    <p-password [(ngModel)]="value" [feedback]="false"></p-password>
+<div class="maincontainer">
+    <form [formGroup]="formUserLogin" class="form-content-p" (ngSubmit)="handleClick()">
+        <div class="container">
+            <h1 class="login-title">Inicio de sesión</h1>
+        </div>
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+                <i class="pi pi-user"></i>
+            </span>
+            <input pInputText formControlName="user" placeholder="Username" />
+        </div>
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+                <i class="pi pi-lock"></i>
+            </span>
+            <p-password formControlName="pass" [feedback]="false" placeholder="Password"></p-password>
+        </div>
+        <div class="button-container">
+            <p-button label="Iniciar sesión" styleClass="send-button" type="submit" [disabled]="!formUserLogin.valid"></p-button>
+        </div>
+    </form>
 </div>
