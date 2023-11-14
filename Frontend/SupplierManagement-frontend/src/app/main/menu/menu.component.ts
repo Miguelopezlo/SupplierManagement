@@ -21,8 +21,8 @@ export class MenuComponent{
           {label: "Buscar contrato", routerLink: 'home/contracts'},
           {label: "Buscar producto", routerLink: 'home/products'},
           {label: "Crear proveedor", routerLink: 'home/createsupplier'},
-          {label: "Crear contrato", routerLink: 'home/createcontract'},
-          {label: "Crear producto", routerLink: 'home/createproduct'}
+          // {label: "Crear contrato", routerLink: 'home/createcontract'},
+          // {label: "Crear producto", routerLink: 'home/createproduct'}
         ]
       }
     ];

@@ -20,16 +20,25 @@ export class SupplierListIdComponent implements OnInit{
 
   selectedItem: string;
 
-  suppliers!: Supplier[];
+  suppliers: Supplier[]=[];
 
   clonedSuppliers: { [s: number]: Supplier } = {};
 
-  columnHeadSupplier: string[]= ['Id proveedor','Nombre de empresa','Nombre de contacto','Dirección','Telefono','E-mail','Calificacion','Ciudad','Acciones'];
+  columnHeadSupplier: string[]= ['Nombre de empresa','Nombre de contacto','Dirección','Telefono','E-mail','Calificacion','Ciudad','Acciones'];
 
   constructor(private supplierService:SupplierService, private messageService: MessageService, private router: Router){}
 
   ngOnInit(){
     this.dropdownOptions=['Id proveedor','Calificacion','Ciudad','Todos','Id producto'];
+  }
+
+  handleEnterKey() {
+    switch(this.router.url){
+      case '/home/suppliersid':{
+        this.getSupplierById(parseInt(this.value))
+        break;
+      }
+    }
   }
 
   private getSupplierById(id: number){

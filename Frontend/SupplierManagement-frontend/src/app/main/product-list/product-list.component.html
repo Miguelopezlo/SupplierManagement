@@ -4,7 +4,7 @@
     <p-dropdown [options]="dropdownOptions" [autoDisplayFirst]=false [(ngModel)]="selectedItem" (onChange)="onChangeDrop($event)"></p-dropdown>
     <span class="p-input-icon-right">
         <i class="pi pi-search"></i>
-        <input type="text" pInputText [(ngModel)]="value" />
+        <input type="text" pInputText [(ngModel)]="value" (keydown.enter)="handleEnterKey()" [disabled]="boolInput"/>
     </span>
 </div>
 <p-table
@@ -12,7 +12,8 @@
     [columns]="columnHeadProducts"
     styleClass="p-datatable-gridlines"
     editMode="row"
-    dataKey="supplierid"
+    dataKey="productid"
+    [scrollable]="true"
     [tableStyle]="{ 'min-width': '50rem' }"
 >
     <ng-template pTemplate="caption"> Lista de productos </ng-template>
