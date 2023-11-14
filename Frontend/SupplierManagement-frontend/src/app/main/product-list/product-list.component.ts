@@ -5,10 +5,6 @@ import { MessageService } from 'primeng/api';
 import { DropdownChangeEvent } from 'primeng/dropdown';
 import { Router } from '@angular/router';
 
-interface Text{
-  name: string;
-}
-
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -16,6 +12,8 @@ interface Text{
   providers: [MessageService]
 })
 export class ProductListComponent implements OnInit{
+
+  boolInput: boolean = false;
 
   dropdownOptions: string[];
 
@@ -35,6 +33,20 @@ export class ProductListComponent implements OnInit{
     this.dropdownOptions=['Todos','Id producto','Criterio de seleccion'];
   }
 
+  handleEnterKey() {
+    this.products=[];
+    switch(this.router.url){
+      case '/home/products/productid':{
+        this.getProductByProductId(parseInt(this.value))
+        break;
+      }
+      case '/home/products/criteria':{
+        this.getProductByCriteria(parseInt(this.value))
+        break;
+      }
+    }
+  }
+
   private getProductList(){
     this.productService.getProductList().subscribe(response =>{
       this.products = response;
@@ -46,7 +58,7 @@ export class ProductListComponent implements OnInit{
 
   private getProductByProductId(productid: number){
     this.productService.getProductByProductId(productid).subscribe(response =>{
-      this.products.push(response);
+      this.products=response;
       console.log(`GET Request for ... successful`, response);
     }, error => {
       console.error(`Error during GET request for ...`,error)
@@ -55,7 +67,7 @@ export class ProductListComponent implements OnInit{
 
   private getProductByCriteria(criteria: number){
     this.productService.getProductByCriteria(criteria).subscribe(response =>{
-      this.products.push(response);
+      this.products= response;
       console.log(`GET Request for ... successful`, response);
     }, error => {
       console.error(`Error during GET request for ...`,error)
@@ -87,14 +99,17 @@ export class ProductListComponent implements OnInit{
       case 'Todos':{
         this.router.navigate(['home/products/all']);
         this.getProductList();
+        this.boolInput=true;
         break;
       }
       case 'Id producto':{
         this.router.navigate(['home/products/productid']);
+        this.boolInput=false;
         break;
       }
       case 'Criterio de seleccion':{
         this.router.navigate(['home/products/criteria']);
+        this.boolInput=false;
         break;
       }
     }

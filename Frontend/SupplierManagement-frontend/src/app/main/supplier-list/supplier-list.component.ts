@@ -3,7 +3,8 @@ import { Supplier } from '../../services/supplier/supplier';
 import { SupplierService } from '../../services/supplier/supplier.service';
 import { MessageService } from 'primeng/api';
 import { DropdownChangeEvent } from 'primeng/dropdown';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-supplier-list',
@@ -13,6 +14,8 @@ import { Router } from '@angular/router';
 })
 
 export class SupplierListComponent implements OnInit{
+
+  boolInput: boolean = false;
 
   dropdownOptions: string[];
 
@@ -30,6 +33,23 @@ export class SupplierListComponent implements OnInit{
 
   ngOnInit(){
     this.dropdownOptions=['Todos','Calificacion','Ciudad','Id proveedor','Id producto'];
+  }
+
+  handleEnterKey() {
+    switch(this.router.url){
+      case '/home/suppliers/score':{
+        this.getSupplierByScore(parseInt(this.value))
+        break;
+      }
+      case '/home/suppliers/city':{
+        this.getSupplierByCity(this.value)
+        break;
+      }
+      case '/home/suppliers/productid':{
+        this.getSupplierByProductId(parseInt(this.value))
+        break;
+      }
+    }
   }
 
   private getSuppliersList(){
@@ -114,22 +134,27 @@ export class SupplierListComponent implements OnInit{
       case 'Todos':{
         this.router.navigate(['home/suppliers/all']);
         this.getSuppliersList();
+        this.boolInput=true;
         break;
       }
       case 'Calificacion':{
         this.router.navigate(['home/suppliers/score']);
+        this.boolInput=false;
         break;
       }
       case 'Ciudad':{
         this.router.navigate(['home/suppliers/city']);
+        this.boolInput=false;
         break;
       }
       case 'Id proveedor':{
         this.router.navigate(['home/suppliersid']);
+        this.boolInput=false;
         break;
       }
       case 'Id producto':{
         this.router.navigate(['home/suppliers/productid']);
+        this.boolInput=false;
         break;
       }
     }

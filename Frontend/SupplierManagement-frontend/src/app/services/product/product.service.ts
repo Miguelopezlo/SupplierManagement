@@ -21,12 +21,12 @@ export class ProductService {
     return this.httpClient.get<Product[]>(`${this.baseURL}/all`)
   }
 
-  getProductByProductId(productid: number): Observable<Product>{
-    return this.httpClient.get<Product>(`${this.baseURL}/productid/${productid}`)
+  getProductByProductId(productid: number): Observable<Product[]>{
+    return this.httpClient.get<Product[]>(`${this.baseURL}/productid/${productid}`)
   }
 
-  getProductByCriteria(criteria: number): Observable<Product>{
-    return this.httpClient.get<Product>(`${this.baseURL}/criteria/${criteria}`)
+  getProductByCriteria(criteria: number): Observable<Product[]>{
+    return this.httpClient.get<Product[]>(`${this.baseURL}/criteria/${criteria}`)
   }
   
 }

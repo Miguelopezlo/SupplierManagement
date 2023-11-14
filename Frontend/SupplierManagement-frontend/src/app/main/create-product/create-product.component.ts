@@ -39,7 +39,8 @@ export class CreateProductComponent implements OnInit{
   }
 
   onRowEditSave(product: Product, index: number) {
-      if (product.averagePrice >= 0) {
+    // product.averagePrice >= 0
+      if (true) {
           delete this.clonedProducts[product.productId as number];
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is loaded' });
           return this.postNewProduct(product);

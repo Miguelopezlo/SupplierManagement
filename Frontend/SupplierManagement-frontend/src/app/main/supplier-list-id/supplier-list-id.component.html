@@ -4,7 +4,7 @@
     <p-dropdown [options]="dropdownOptions" [autoDisplayFirst]=false [(ngModel)]="selectedItem" (onChange)="onChangeDrop($event)"></p-dropdown>
     <span class="p-input-icon-right">
         <i class="pi pi-search"></i>
-        <input type="text" pInputText [(ngModel)]="value" />
+        <input type="text" pInputText [(ngModel)]="value" (keydown.enter)="handleEnterKey()"/>
     </span>
 </div>
 <p-table
@@ -26,9 +26,6 @@
     </ng-template>
     <ng-template pTemplate="body" let-supplier let-editing="editing" let-ri="rowIndex">
         <tr [pEditableRow]="supplier">
-            <td>
-                {{supplier.supplierid}}
-            </td>
             <td>
                 {{supplier.companyname}}
             </td>
