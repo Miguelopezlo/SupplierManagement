@@ -59,8 +59,8 @@ public class ContractServiceImpl implements ContractService {
         return repositorio.save(contract);
 	}
 
-	@Transactional
-    public void saveContract(ContractInsert contract) {
-		repositoriojdbc.saveContract(contract);
-    }
+//	@Transactional
+//    public ContractInsert saveContract(ContractInsert contract) {
+//		return repositoriojdbc.saveContract(contract);
+//    }
 }

@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.sb.suppliermanagement.dto.ContractDTO;
 import com.sb.suppliermanagement.model.Contract;
 import com.sb.suppliermanagement.model.ContractInsert;
+import com.sb.suppliermanagement.repository.ContractJdbcRepository;
 import com.sb.suppliermanagement.services.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,8 @@ public class ContractController {
 	
 	@Autowired
 	private ContractService service;
-	
+	@Autowired
+	private ContractJdbcRepository repository;
 	
 	// Implementación del metodo get para el modelo entidad
 	@GetMapping("/{id}")
@@ -55,17 +57,10 @@ public class ContractController {
         contractdb.setContractstate(contract.getContractstate());
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(contractdb));
     }
-    //creación de contrato
-    @PostMapping("/create")
-    public ResponseEntity<?> saveContract(@RequestBody ContractInsert contract) {
-        try {
-            // Lógica para guardar el contrato utilizando ContractService
-            service.saveContract(contract);
 
-            return new ResponseEntity<>("Contrato guardado exitosamente", HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Error al guardar el cont: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @PostMapping("/create")
+    public ContractInsert save(@RequestBody ContractInsert contract) {
+    	return repository.save(contract);
     }
 
 }

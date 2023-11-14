@@ -13,7 +13,7 @@ public interface ContractService {
 	//Se describe el funcionamiento de los sigueinte metodos en el archivo ContractServiceImpl
 	public Optional<Contract> findById(Long id);
 	public Optional<ContractDTO> findByContractid(Long id);
-	void saveContract(ContractInsert contract);
+//	public ContractInsert saveContract(ContractInsert contract);
 	public Object save(Contract contractdb);
 
 }
