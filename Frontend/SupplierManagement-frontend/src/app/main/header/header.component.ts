@@ -13,6 +13,10 @@ export class HeaderComponent {
 
   constructor(private router: Router){}
 
+/**
+ * The ngOnInit function initializes the "modelo" variable with an array containing an object with
+ * properties for label and icon.
+ */
   ngOnInit(){
     this.modelo=[
       {

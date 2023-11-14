@@ -10,6 +10,8 @@ import { CreateSupplierComponent } from './main/create-supplier/create-supplier.
 import { CreateContractComponent } from './main/create-contract/create-contract.component';
 import { CreateProductComponent } from './main/create-product/create-product.component';
 
+/* The `const routes: Routes` defines the routes for the Angular application. Each route object
+specifies a path and a component that should be displayed when that path is accessed. */
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: '', redirectTo: 'login', pathMatch: 'full'},

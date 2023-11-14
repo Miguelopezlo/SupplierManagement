@@ -29,10 +29,17 @@ export class ProductListComponent implements OnInit{
 
   constructor(private productService: ProductService, private messageService: MessageService, private router: Router){}
 
+/**
+ * The ngOnInit function initializes the dropdownOptions array with three options.
+ */
   ngOnInit() {
     this.dropdownOptions=['Todos','Id producto','Criterio de seleccion'];
   }
 
+/**
+ * The handleEnterKey function clears the products array and then calls different functions based on
+ * the current URL.
+ */
   handleEnterKey() {
     this.products=[];
     switch(this.router.url){
@@ -47,6 +54,11 @@ export class ProductListComponent implements OnInit{
     }
   }
 
+/**
+ * The function `getProductList()` makes a GET request to retrieve a list of products from a service
+ * and assigns the response to the `products` variable, while also logging the success or error
+ * messages.
+ */
   private getProductList(){
     this.productService.getProductList().subscribe(response =>{
       this.products = response;
@@ -56,6 +68,12 @@ export class ProductListComponent implements OnInit{
     })
   }
 
+/**
+ * The function `getProductByProductId` makes a GET request to retrieve a product by its ID and logs
+ * the response or any errors.
+ * @param {number} productid - The parameter `productid` is of type `number` and represents the unique
+ * identifier of a product.
+ */
   private getProductByProductId(productid: number){
     this.productService.getProductByProductId(productid).subscribe(response =>{
       this.products=response;
@@ -65,6 +83,13 @@ export class ProductListComponent implements OnInit{
     })
   }
 
+/**
+ * The function `getProductByCriteria` makes a GET request to the productService to retrieve products
+ * based on a given criteria and logs the response or any errors.
+ * @param {number} criteria - The criteria parameter is a number that is used to filter the products.
+ * It is passed to the getProductByCriteria method to retrieve products that match the specified
+ * criteria.
+ */
   private getProductByCriteria(criteria: number){
     this.productService.getProductByCriteria(criteria).subscribe(response =>{
       this.products= response;
@@ -94,6 +119,13 @@ export class ProductListComponent implements OnInit{
   //     delete this.clonedProduct[product.productid as number];
   // }
 
+/**
+ * The `onChangeDrop` function is used to navigate to different routes based on the selected value of a
+ * dropdown and update a boolean variable accordingly.
+ * @param {DropdownChangeEvent} event - The parameter "event" is of type DropdownChangeEvent. It is an
+ * object that represents the change event of a dropdown component. It typically contains information
+ * about the selected value of the dropdown.
+ */
   onChangeDrop(event: DropdownChangeEvent){
     switch (event.value){
       case 'Todos':{

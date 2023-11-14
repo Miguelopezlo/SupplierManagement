@@ -12,6 +12,9 @@ export class MenuComponent{
 
   modelo: MenuItem[];
 
+/**
+ * The ngOnInit function initializes an array called "modelo" with a list of options for a menu.
+ */
   ngOnInit(){
     this.modelo=[
       {

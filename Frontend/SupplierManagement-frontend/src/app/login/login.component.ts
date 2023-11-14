@@ -18,6 +18,10 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService){}
 
+/**
+ * The ngOnInit function initializes a form for user login with two fields, "user" and "pass", and sets
+ * them as required fields.
+ */
   ngOnInit() {
     this.formUserLogin = this.formBuilder.group({
       user: new FormControl('', Validators.required),
@@ -25,6 +29,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
+/**
+ * The handleClick function checks if the user and password entered match the admin credentials, and if
+ * so, logs in the user as an admin and navigates to the suppliers page.
+ * @returns In the code snippet provided, the function `handleClick()` returns nothing (`undefined`).
+ */
   handleClick(){
     let user: string = this.formUserLogin.value.user;
     let pass: number = parseInt(this.formUserLogin.value.pass);
