@@ -17,13 +17,11 @@ interface Text{
 })
 export class ProductListComponent implements OnInit{
 
-  dropdownOptions: Text[];
+  dropdownOptions: string[];
 
   value: string;
 
-  selectedItem: Text= {} as Text;
-
-  option: number;
+  selectedItem: string;
 
   products: Product[] = [];
 
@@ -34,12 +32,7 @@ export class ProductListComponent implements OnInit{
   constructor(private productService: ProductService, private messageService: MessageService, private router: Router){}
 
   ngOnInit() {
-    this.getProductList();
-    this.dropdownOptions=[
-      {name: 'Todos'},
-      {name: 'Id producto'},
-      {name: 'Criterio de seleccion'},
-    ];
+    this.dropdownOptions=['Todos','Id producto','Criterio de seleccion'];
   }
 
   private getProductList(){
@@ -89,18 +82,19 @@ export class ProductListComponent implements OnInit{
   //     delete this.clonedProduct[product.productid as number];
   // }
 
-  onChangeDrop(event: Text){
-    switch (event.name){
+  onChangeDrop(event: DropdownChangeEvent){
+    switch (event.value){
       case 'Todos':{
-        
+        this.router.navigate(['home/products/all']);
+        this.getProductList();
         break;
       }
       case 'Id producto':{
-        
+        this.router.navigate(['home/products/productid']);
         break;
       }
       case 'Criterio de seleccion':{
-
+        this.router.navigate(['home/products/criteria']);
         break;
       }
     }
