@@ -1,7 +1,7 @@
 <p-toast></p-toast>
 <div class="content">
     <p-button label="Buscar por: "></p-button>
-    <p-dropdown [options]="dropdownOptions" [(ngModel)]="selectedItem" (onChange)="onChangeDrop(selectedItem)" optionLabel="name"></p-dropdown>
+    <p-dropdown [options]="dropdownOptions" [autoDisplayFirst]=false [(ngModel)]="selectedItem" (onChange)="onChangeDrop($event)"></p-dropdown>
     <span class="p-input-icon-right">
         <i class="pi pi-search"></i>
         <input type="text" pInputText [(ngModel)]="value" />

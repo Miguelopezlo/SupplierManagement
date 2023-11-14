@@ -35,23 +35,23 @@ export class CreateProductComponent implements OnInit{
   }
 
   onRowEditInit(product: Product) {
-    this.clonedProducts[product.productid as number] = { ...product };
+    this.clonedProducts[product.productId as number] = { ...product };
   }
 
   onRowEditSave(product: Product, index: number) {
-      if (product.averageprice >= 0) {
-          delete this.clonedProducts[product.productid as number];
+      if (product.averagePrice >= 0) {
+          delete this.clonedProducts[product.productId as number];
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is loaded' });
           return this.postNewProduct(product);
       }
-      this.products[index] = this.clonedProducts[product.productid as number];
-      delete this.clonedProducts[product.productid as number];
+      this.products[index] = this.clonedProducts[product.productId as number];
+      delete this.clonedProducts[product.productId as number];
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Average Price' });
   }
 
   onRowEditCancel(product: Product, index: number) {
-      this.products[index] = this.clonedProducts[product.productid as number];
-      delete this.clonedProducts[product.productid as number];
+      this.products[index] = this.clonedProducts[product.productId as number];
+      delete this.clonedProducts[product.productId as number];
   }
 
 }

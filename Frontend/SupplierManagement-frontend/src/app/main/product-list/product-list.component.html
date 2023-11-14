@@ -1,7 +1,7 @@
 <p-toast></p-toast>
 <div class="content">
     <p-button label="Buscar por: "></p-button>
-    <p-dropdown [options]="dropdownOptions" [(ngModel)]="selectedItem" (onChange)="onChangeDrop(selectedItem)" optionLabel="name"></p-dropdown>
+    <p-dropdown [options]="dropdownOptions" [autoDisplayFirst]=false [(ngModel)]="selectedItem" (onChange)="onChangeDrop($event)"></p-dropdown>
     <span class="p-input-icon-right">
         <i class="pi pi-search"></i>
         <input type="text" pInputText [(ngModel)]="value" />
@@ -26,10 +26,10 @@
     <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
         <tr [pEditableRow]="product">
             <td>
-                {{product.productid}}  
+                {{product.productId}}  
             </td>
             <td>
-                {{product.productname}}
+                {{product.productName}}
             </td>
             <td>
                 <!-- <p-cellEditor>
@@ -37,15 +37,15 @@
                         <input pInputText type="text" [(ngModel)]="product.averageprice">
                     </ng-template>
                     <ng-template pTemplate="output"> -->
-                        {{product.averageprice}}
+                        {{product.averagePrice}}
                     <!-- </ng-template>
                 </p-cellEditor>    -->
             </td>
             <td>
-                {{product.selectioncriteriaid}}
+                {{product.selectionCriteria}}
             </td>
             <td>
-                {{product.activityid}}
+                {{product.activityName}}
             </td>
             <!-- <td>
                 <div class="flex align-items-center justify-content-center gap-2">

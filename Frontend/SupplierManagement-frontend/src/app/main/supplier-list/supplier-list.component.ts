@@ -5,10 +5,6 @@ import { MessageService } from 'primeng/api';
 import { DropdownChangeEvent } from 'primeng/dropdown';
 import { Router } from '@angular/router';
 
-interface Text{
-  name: string;
-}
-
 @Component({
   selector: 'app-supplier-list',
   templateUrl: './supplier-list.component.html',
@@ -18,13 +14,11 @@ interface Text{
 
 export class SupplierListComponent implements OnInit{
 
-  dropdownOptions: Text[];
+  dropdownOptions: string[];
 
   value: string;
 
-  selectedItem: Text={} as Text;
-
-  option: number;
+  selectedItem: string;
 
   suppliers: Supplier[]=[];
 
@@ -35,17 +29,9 @@ export class SupplierListComponent implements OnInit{
   constructor(private supplierService:SupplierService, private messageService: MessageService, private router: Router){}
 
   ngOnInit(){
-    this.option=1;
-    this.getSuppliersList();
-    this.dropdownOptions=[
-      {name: 'Todos'},
-      {name: 'Calificacion'},
-      {name: 'Ciudad'},
-      {name: 'Id proveedor'},
-      {name: 'Id producto'}
-    ];
+    this.dropdownOptions=['Todos','Calificacion','Ciudad','Id proveedor','Id producto'];
   }
-  
+
   private getSuppliersList(){
     this.supplierService.getSupplierList().subscribe(response =>{
       this.suppliers = response;
@@ -123,18 +109,19 @@ export class SupplierListComponent implements OnInit{
       delete this.clonedSuppliers[supplier.supplierid as number];
   }
 
-  onChangeDrop(event: Text){
-    switch (event.name){
+  onChangeDrop(event: DropdownChangeEvent){
+    switch (event.value){
       case 'Todos':{
-        this.option=1;
+        this.router.navigate(['home/suppliers/all']);
+        this.getSuppliersList();
         break;
       }
       case 'Calificacion':{
-        this.option=2;
+        this.router.navigate(['home/suppliers/score']);
         break;
       }
       case 'Ciudad':{
-        this.option=3;
+        this.router.navigate(['home/suppliers/city']);
         break;
       }
       case 'Id proveedor':{
@@ -142,8 +129,8 @@ export class SupplierListComponent implements OnInit{
         break;
       }
       case 'Id producto':{
-        this.option=5;
-        return;
+        this.router.navigate(['home/suppliers/productid']);
+        break;
       }
     }
   }

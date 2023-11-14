@@ -1,7 +1,7 @@
 export class Product {
-    productid: number;
-    productname: string;
-    averageprice: number;
-    selectioncriteriaid: string;
-    activityid: string;
+    productId: number;
+    productName: string;
+    averagePrice: number;
+    selectionCriteria: string;
+    activityName: string;
 }

@@ -5,10 +5,6 @@ import { MessageService } from 'primeng/api';
 import { DropdownChangeEvent } from 'primeng/dropdown';
 import { Router } from '@angular/router';
 
-interface Text{
-  name: string;
-}
-
 @Component({
   selector: 'app-supplier-list-id',
   templateUrl: './supplier-list-id.component.html',
@@ -18,13 +14,11 @@ interface Text{
 
 export class SupplierListIdComponent implements OnInit{
 
-  dropdownOptions: Text[];
+  dropdownOptions: string[];
 
   value: string;
 
-  selectedItem: Text= {} as Text;
-
-  option: number;
+  selectedItem: string;
 
   suppliers!: Supplier[];
 
@@ -35,14 +29,7 @@ export class SupplierListIdComponent implements OnInit{
   constructor(private supplierService:SupplierService, private messageService: MessageService, private router: Router){}
 
   ngOnInit(){
-    this.option=4;
-    this.dropdownOptions=[
-      {name: 'Id proveedor'},
-      {name: 'Calificacion'},
-      {name: 'Ciudad'},
-      {name: 'Id producto'},
-      {name: 'Todos'}
-    ];
+    this.dropdownOptions=['Id proveedor','Calificacion','Ciudad','Todos','Id producto'];
   }
 
   private getSupplierById(id: number){
@@ -95,24 +82,26 @@ export class SupplierListIdComponent implements OnInit{
       delete this.clonedSuppliers[supplier.supplierid as number];
   }
 
-  onChangeDrop(event: Text){
-    switch (event.name){
+  onChangeDrop(event: DropdownChangeEvent){
+    switch (event.value){
       case 'Todos':{
-        this.router.navigate(['home/suppliers']);
+        this.router.navigate(['home/suppliers/all']);
         break;
       }
       case 'Calificacion':{
+        this.router.navigate(['home/suppliers/score']);
         break;
       }
       case 'Ciudad':{
+        this.router.navigate(['home/suppliers/city']);
         break;
       }
       case 'Id proveedor':{
-        
+        this.router.navigate(['home/suppliersid']);
         break;
       }
       case 'Id producto':{
-
+        this.router.navigate(['home/suppliers/productid']);
         break;
       }
     }

@@ -10,10 +10,21 @@ import { CreateSupplierComponent } from './create-supplier/create-supplier.compo
 
 const routes: Routes = [
   {path: 'home', children: [
-    {path:'suppliers', component: SupplierListComponent},
-    {path:'suppliersid', component: SupplierListIdComponent},
-    {path: 'contracts', component: ContractListComponent},
-    {path: 'products', component: ProductListComponent},
+    {path:'suppliers', component: SupplierListComponent, children: [
+      {path: 'all',component: SupplierListComponent},
+      {path: 'score',component: SupplierListComponent},
+      {path: 'city',component: SupplierListComponent},
+      {path: 'productid',component: SupplierListComponent},
+    ]},
+    {path: 'suppliersid', component: SupplierListIdComponent},
+    {path: 'contracts', component: ContractListComponent, children:[
+      {path: 'contractid',component: ContractListComponent},
+    ]},
+    {path: 'products', component: ProductListComponent, children:[
+      {path: 'all',component: ProductListComponent},
+      {path: 'productid',component: ProductListComponent},
+      {path: 'criteria',component: ProductListComponent},
+    ]},
     {path: 'createsupplier', component: CreateSupplierComponent},
     {path: 'createcontract', component: CreateContractComponent},
     {path: 'createproduct', component: CreateProductComponent},

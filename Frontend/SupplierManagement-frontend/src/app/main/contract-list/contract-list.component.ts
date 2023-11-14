@@ -5,10 +5,6 @@ import { MessageService } from 'primeng/api';
 import { DropdownChangeEvent } from 'primeng/dropdown';
 import { Router } from '@angular/router';
 
-interface Text{
-  name: string;
-}
-
 interface Contrato{
   contractstate: string;
 }
@@ -21,7 +17,7 @@ interface Contrato{
 })
 export class ContractListComponent implements OnInit{
 
-  dropdownOptions: Text[];
+  dropdownOptions: string[];
 
   value: string;
 
@@ -38,9 +34,7 @@ export class ContractListComponent implements OnInit{
   constructor(private contractService: ContractService, private messageService: MessageService, private router: Router){}
 
   ngOnInit(){
-    this.dropdownOptions=[
-      {name: 'Id contrato'}
-    ];
+    this.dropdownOptions=['Id contrato'];
   }
 
   private getContractById(id: number){
@@ -81,4 +75,12 @@ export class ContractListComponent implements OnInit{
       delete this.clonedContract[contract.contractId as number];
   }
 
+  onChangeDrop(event: DropdownChangeEvent){
+    switch (event.value){
+      case 'Id contrato':{
+        this.router.navigate(['home/contracts/contractid']);
+        break;
+      }
+    }
+  }
 }
