@@ -115,4 +115,9 @@ public class ProductServiceImpl implements ProductService {
 
         return productDTOs;
     }
+
+	@Transactional
+	public ProductDTO saveDTO(ProductDTO product) {
+		return repositorio.save(product);
+	}
 }

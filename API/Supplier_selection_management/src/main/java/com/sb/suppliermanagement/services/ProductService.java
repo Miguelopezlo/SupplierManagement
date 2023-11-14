@@ -16,6 +16,6 @@ public interface ProductService {
 	public List<ProductDTO> findAllasDTO();
 	public List<ProductDTO> findBySelectioncriteriaidAsDTO(Long criteria);
 	public List<ProductDTO> findByProductidAsDTO(Long id);
-
+	public ProductDTO saveDTO(ProductDTO product);
 
 }

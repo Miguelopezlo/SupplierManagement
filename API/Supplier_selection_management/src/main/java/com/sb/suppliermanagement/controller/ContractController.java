@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.sb.suppliermanagement.dto.ContractDTO;
 import com.sb.suppliermanagement.model.Contract;
+import com.sb.suppliermanagement.model.ContractInsert;
 import com.sb.suppliermanagement.model.Supplier;
 import com.sb.suppliermanagement.services.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,9 +58,15 @@ public class ContractController {
     }
     //creación de contrato
     @PostMapping("/create")
-    public ResponseEntity<?> createContract(@RequestBody ContractDTO contract) {
-        ContractDTO contractdb = service.save(contract);
-        return ResponseEntity.status(HttpStatus.CREATED).body(contractdb);
+    public ResponseEntity<?> saveContract(@RequestBody ContractInsert contract) {
+        try {
+            // Lógica para guardar el contrato utilizando ContractService
+            service.saveContract(contract);
+
+            return new ResponseEntity<>("Contrato guardado exitosamente", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al guardar el cont: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-	
+
 }

@@ -2,10 +2,13 @@ package com.sb.suppliermanagement.services;
 
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.sb.suppliermanagement.dto.ContractDTO;
 import com.sb.suppliermanagement.model.Contract;
+import com.sb.suppliermanagement.model.ContractInsert;
+import com.sb.suppliermanagement.repository.ContractJdbcRepository;
 import com.sb.suppliermanagement.repository.ContractRepository;
 
 @Service
@@ -13,6 +16,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Autowired
     private ContractRepository repositorio;
+    private ContractJdbcRepository repositoriojdbc;
 
     // Método que busca y devuelve un contrato por su ID.
     @Transactional(readOnly=true)
@@ -29,20 +33,20 @@ public class ContractServiceImpl implements ContractService {
             Contract contractObj = contract.get(); // Obtenemos el contrato de Optional
 
             // Establece los atributos del DTO con los valores del contrato
-            dto.setContractId(contractObj.getContractid());
-            dto.setContractDescription(contractObj.getContractdescription());
-            dto.setStartDate(contractObj.getStartdate());
-            dto.setFinishDate(contractObj.getFinishdate());
-            dto.setContractState(contractObj.getContractstate());
+            dto.setContractid(contractObj.getContractid());
+            dto.setContractdescription(contractObj.getContractdescription());
+            dto.setStartdate(contractObj.getStartdate());
+            dto.setFinishdate(contractObj.getFinishdate());
+            dto.setContractstate(contractObj.getContractstate());
 
             // Obtener los nombres de las relaciones
             if (contractObj.getProductid() != null) {
-                dto.setProductName(contractObj.getProductid().getProductname());
-                dto.setProductId(contractObj.getProductid().getProductid());
+                dto.setProductname(contractObj.getProductid().getProductname());
+                dto.setProductid(contractObj.getProductid().getProductid());
             }
             if (contractObj.getSupplierid() != null) {
-                dto.setSupplierName(contractObj.getSupplierid().getCompanyname());
-                dto.setSupplierId(contractObj.getSupplierid().getSupplierid());
+                dto.setSuppliername(contractObj.getSupplierid().getCompanyname());
+                dto.setSupplierid(contractObj.getSupplierid().getSupplierid());
             }
 
             return Optional.of(dto); // Devolvemos un Optional que contiene el DTO
@@ -57,7 +61,7 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Transactional
-	public ContractDTO save(ContractDTO contract) {
-		 return repositorio.save(contract);
-	}
+    public void saveContract(ContractInsert contract) {
+		repositoriojdbc.saveContract(contract);
+    }
 }
