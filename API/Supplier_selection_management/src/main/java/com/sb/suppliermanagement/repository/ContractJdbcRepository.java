@@ -21,9 +21,8 @@ public class ContractJdbcRepository{
     public ContractInsert save(ContractInsert contractInsert) {
     	try {
     	      String sql = "INSERT INTO contract (contractid, contractdescription, startdate, finishdate, contractstate, productid, supplierid) " +
-    	                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    	                "VALUES (CONTRACTS_SECUENCE.NEXTVAL, ?, ?, ?, ?, ?, ?)";
     	            jdbcTemplate.update(sql,
-    	                    contractInsert.getContractid(),
     	                    contractInsert.getContractdescription(),
     	                    contractInsert.getStartdate(),
     	                    contractInsert.getFinishdate(),
