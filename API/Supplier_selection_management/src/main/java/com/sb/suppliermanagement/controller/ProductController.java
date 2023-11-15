@@ -2,7 +2,9 @@ package com.sb.suppliermanagement.controller;
 import java.util.List;
 
 import com.sb.suppliermanagement.dto.ProductDTO;
+import com.sb.suppliermanagement.model.ContractInsert;
 import com.sb.suppliermanagement.model.Product;
+import com.sb.suppliermanagement.repository.ProductJdbcRepository;
 import com.sb.suppliermanagement.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     @Autowired
     private ProductService service;
-
+    @Autowired
+    private ProductJdbcRepository repository;
+    
     // Obtiene todos los productos como objetos DTO
     @GetMapping("/all")
     public ResponseEntity<?> listProductDTO() {
@@ -50,8 +54,7 @@ public class ProductController {
 
     // Crea un nuevo producto
     @PostMapping("/create")
-    public ResponseEntity<?> createProduct(@RequestBody Product product) {
-        Product productdb = service.save(product);
-        return ResponseEntity.status(HttpStatus.CREATED).body(productdb);
+    public ProductDTO save(@RequestBody ProductDTO product) {
+    	return repository.save(product);
     }
 }

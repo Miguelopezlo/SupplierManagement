@@ -15,7 +15,6 @@ public class ContractServiceImpl implements ContractService {
 
     @Autowired
     private ContractRepository repositorio;
-    private ContractJdbcRepository repositoriojdbc;
 
     // Método que busca y devuelve un contrato por su ID.
     @Transactional(readOnly=true)
@@ -59,8 +58,4 @@ public class ContractServiceImpl implements ContractService {
         return repositorio.save(contract);
 	}
 
-//	@Transactional
-//    public ContractInsert saveContract(ContractInsert contract) {
-//		return repositoriojdbc.saveContract(contract);
-//    }
 }
