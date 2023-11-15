@@ -22,19 +22,20 @@ const routes: Routes = [
       {path: 'score',component: SupplierListComponent},
       {path: 'city',component: SupplierListComponent},
       {path: 'productid',component: SupplierListComponent},
+      {path: 'suppliersid', component: SupplierListComponent}
     ]},
-    {path: 'suppliersid', component: SupplierListIdComponent},
-    {path: 'contracts', canActivate: [AuthGuard], component: ContractListComponent, children:[
+    
+    {path: 'contracts',  component: ContractListComponent, children:[
       {path: 'contractid',component: ContractListComponent},
     ]},
-    {path: 'products', canActivate: [AuthGuard], component: ProductListComponent, children:[
+    {path: 'products',  component: ProductListComponent, children:[
       {path: 'all',component: ProductListComponent},
       {path: 'productid',component: ProductListComponent},
       {path: 'criteria',component: ProductListComponent},
     ]},
-    {path: 'createsupplier', component: CreateSupplierComponent, canActivate: [AuthGuard]},
-    {path: 'createcontract', component: CreateContractComponent, canActivate: [AuthGuard]},
-    {path: 'createproduct', component: CreateProductComponent, canActivate: [AuthGuard]},
+    {path: 'createsupplier', component: CreateSupplierComponent, },
+    {path: 'createcontract', component: CreateContractComponent, },
+    {path: 'createproduct', component: CreateProductComponent, },
   ]},
   {path: '**', redirectTo: 'login' },
 ];

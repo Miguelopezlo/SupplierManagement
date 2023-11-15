@@ -56,9 +56,26 @@ export class SupplierListComponent implements OnInit{
         this.getSupplierByProductId(parseInt(this.value))
         break;
       }
+      case '/home/suppliers/suppliersid':{
+        this.getSupplierById(parseInt(this.value))
+        break;
+      }
     }
   }
-
+  /**
+   * The function `getSupplierById` makes a GET request to retrieve a supplier by its ID and adds the
+   * response to the `suppliers` array.
+   * @param {number} id - The `id` parameter is a number that represents the unique identifier of a
+   * supplier.
+   */
+    private getSupplierById(id: number){
+      this.supplierService.getSupplierById(id).subscribe(response =>{
+        this.suppliers.push(response);
+        console.log(`GET Request for ... successful`, response);
+      }, error => {
+        console.error(`Error during GET request for ...`,error)
+      })
+    }
 /**
  * The function `getSuppliersList` makes a GET request to retrieve a list of suppliers and logs the
  * response or any errors.
@@ -228,7 +245,7 @@ export class SupplierListComponent implements OnInit{
         break;
       }
       case 'Id proveedor':{
-        this.router.navigate(['home/suppliersid']);
+        this.router.navigate(['home/suppliers/suppliersid']);
         this.boolInput=false;
         break;
       }
@@ -238,5 +255,6 @@ export class SupplierListComponent implements OnInit{
         break;
       }
     }
+    this.suppliers=[];
   }
 }
