@@ -17,7 +17,7 @@ export class CreateContractComponent implements OnInit{
 
   clonedContract: { [s: number]: Contract} ={};
 
-  columnHeadContracts: string [] = ['Nombre producto','Fecha de inicio','Fecha de finalizacion','Estado del contrato','Id producto','Acciones'];
+  columnHeadContracts: string [] = ['Nombre producto','Fecha de inicio','Fecha de finalizacion','Estado del contrato','Id producto','Id proveedor','Acciones'];
 
   constructor(private contractService: ContractService, private messageService: MessageService){}
 

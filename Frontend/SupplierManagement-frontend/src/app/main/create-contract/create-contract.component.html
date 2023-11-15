@@ -68,6 +68,16 @@
                 </p-cellEditor>   
             </td>
             <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="contract.supplierid">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{contract.supplierid}}
+                    </ng-template>
+                </p-cellEditor>   
+            </td>
+            <td>
                 <div class="flex align-items-center justify-content-center gap-2">
                     <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(contract)" class="p-button-rounded p-button-text"></button>
                     <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-save" (click)="onRowEditSave(contract,ri)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
