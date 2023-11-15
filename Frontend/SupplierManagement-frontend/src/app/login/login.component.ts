@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [MessageService]
 })
 
 export class LoginComponent implements OnInit {
@@ -16,7 +18,7 @@ export class LoginComponent implements OnInit {
   private userAdmin = 'Miguel';
   private passAdmin = 123;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService){}
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService, private messageService: MessageService){}
 
 /**
  * The ngOnInit function initializes a form for user login with two fields, "user" and "pass", and sets
@@ -43,7 +45,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['home/suppliers']);
       return;
     } 
-    // alert('user or password incorrect');
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Usuario o contraseña incorrecta' });
   }
 
 }

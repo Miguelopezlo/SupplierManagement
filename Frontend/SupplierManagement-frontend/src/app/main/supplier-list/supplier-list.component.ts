@@ -71,9 +71,11 @@ export class SupplierListComponent implements OnInit{
     private getSupplierById(id: number){
       this.supplierService.getSupplierById(id).subscribe(response =>{
         this.suppliers.push(response);
-        console.log(`GET Request for ... successful`, response);
+        console.log(`GET Request for supplier #${id} successful`, response);
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Proveedor encontrado' });
       }, error => {
-        console.error(`Error during GET request for ...`,error)
+        console.error(`Error during GET request for supplier #${id}`,error);
+        this.messageService.add({ severity: 'error', summary: 'Error:', detail: 'Proveedor no encontrado' });
       })
     }
 /**
@@ -83,9 +85,11 @@ export class SupplierListComponent implements OnInit{
   private getSuppliersList(){
     this.supplierService.getSupplierList().subscribe(response =>{
       this.suppliers = response;
-      console.log(`GET Request for ... successful`, response);
+      console.log(`GET Request for supplier list successful`, response);
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Proveedores encontrados' });
     }, error => {
-      console.error(`Error during GET request for ...`,error)
+      console.error(`Error during GET request for supplier list`,error)
+      this.messageService.add({ severity: 'success', summary: 'Error:', detail: 'No hay proveedores en la base de datos' });
     })
   }
 
@@ -97,9 +101,11 @@ export class SupplierListComponent implements OnInit{
   private getSupplierByScore(score: number){
     this.supplierService.getSupplierByScore(score).subscribe(response =>{
       this.suppliers = response;
-      console.log(`GET Request for ... successful`, response);
+      console.log(`GET Request for suppliers with a score of ${score} successful`, response);
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Proveedores encontrados' });
     }, error => {
-      console.error(`Error during GET request for ...`,error)
+      console.error(`Error during GET request for suppliers with a score of ${score}`,error)
+      this.messageService.add({ severity: 'error', summary: 'Error:', detail: 'No se encontraron proveedores' });
     })
   }
 
@@ -112,9 +118,11 @@ export class SupplierListComponent implements OnInit{
   private getSupplierByCity(city: string){
     this.supplierService.getSupplierByCity(city).subscribe(response =>{
       this.suppliers = response;
-      console.log(`GET Request for ... successful`, response);
+      console.log(`GET Request for suppliers located in ${city} successful`, response);
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Proveedores encontrados' });
     }, error => {
-      console.error(`Error during GET request for ...`,error)
+      console.error(`Error during GET request for suppliers located in ${city}`,error)
+      this.messageService.add({ severity: 'error', summary: 'Error:', detail: 'No se encontraron proveedores' });
     })
   }
 
@@ -127,9 +135,11 @@ export class SupplierListComponent implements OnInit{
   private getSupplierByProductId(productid: number){
     this.supplierService.getSupplierByProductId(productid).subscribe(response =>{
       this.suppliers = response;
-      console.log(`GET Request for ... successful`, response);
+      console.log(`GET Request for product #${productid} suppliers successful`, response);
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Proveedores encontrados' });
     }, error => {
-      console.error(`Error during GET request for ...`,error)
+      console.error(`Error during GET request for product #${productid} suppliers`,error);
+      this.messageService.add({ severity: 'error', summary: 'Error:', detail: 'No se encontraron proveedores' });
     })
   }
 
@@ -139,11 +149,14 @@ export class SupplierListComponent implements OnInit{
  * @param {number} id - The `id` parameter is the unique identifier of the supplier that you want to
  * delete.
  */
-  private deleteSupplierById(id: number){
+  private deleteSupplierById(id: number,index: number){
     this.supplierService.deleteSupplierById(id).subscribe(response =>{
-      console.log(`DELETE Request for ... successful`, response);
+      this.suppliers.splice(index,1)
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Proveedor eliminado' });
+      console.log(`DELETE Request for supplier #${id} successful`, response);
     }, error => {
-      console.error(`Error during DELETE request for ...`,error)
+      console.error(`Error during DELETE request for supplier #${id}`,error);
+      this.messageService.add({ severity: 'error', summary: 'Error:', detail: 'No se pudo eliminar el proveedor' });
     })
   }
 
@@ -157,9 +170,11 @@ export class SupplierListComponent implements OnInit{
  */
   private updateSupplier(supplier: Supplier, id: number){
     this.supplierService.updateSupplier(supplier,id).subscribe(response =>{
-      console.log(`PUT Request for ... successful`, response);
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Proveedor actualizado' });
+      console.log(`PUT Request for supplier #${id} successful`, response);
     }, error => {
-      console.error(`Error during PUT request for ...`,error)
+      console.error(`Error during PUT request for supplier #${id}`,error);
+      this.messageService.add({ severity: 'error', summary: 'Error:', detail: 'No se pudo actualizar el proveedor' });
     })
   }
 
@@ -185,12 +200,11 @@ export class SupplierListComponent implements OnInit{
   onRowEditSave(supplier: Supplier, index: number) {
       if (supplier.score >= 0 && supplier.score<= 10) {
           delete this.clonedSuppliers[supplier.supplierid as number];
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Supplier is updated' });
           return this.updateSupplier(supplier,supplier.supplierid);
       }
       this.suppliers[index] = this.clonedSuppliers[supplier.supplierid as number];
       delete this.clonedSuppliers[supplier.supplierid as number];
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Score' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Calificacion invalida' });
   }
 
 /**
@@ -202,8 +216,7 @@ export class SupplierListComponent implements OnInit{
  * array that needs to be edited or deleted.
  */
   onRowEditDelete(supplier: Supplier, index: number){
-    this.suppliers.splice(index,1);
-    this.deleteSupplierById(supplier.supplierid);
+    this.deleteSupplierById(supplier.supplierid,index);
   }
 
 /**
@@ -256,5 +269,6 @@ export class SupplierListComponent implements OnInit{
       }
     }
     this.suppliers=[];
+    this.value='';
   }
 }

@@ -63,9 +63,11 @@ export class ContractListComponent implements OnInit{
   private getContractById(id: number){
     this.contractService.getContractById(id).subscribe(response =>{
       this.contract.push(response)
-      console.log(`GET Request for ... successful`, response);
+      console.log(`GET Request for contract #${id} successful`, response);
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Contrato encontrado' });
     }, error => {
-      console.error(`Error during GET request for ...`,error)
+      console.error(`Error during GET request for contract #${id}`,error)
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Contrato no encontrado' });
     })
   }
 
@@ -79,9 +81,11 @@ export class ContractListComponent implements OnInit{
   private updateContract(contract: Contract,id: number){
     this.contrato.contractstate=contract.contractstate;
     this.contractService.updateContract(this.contrato,id).subscribe(response =>{
-      console.log(`PUT Request for ... successful`, response);
+      console.log(`PUT Request for contract #${id} successful`, response);
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Contrato actualizado' });
     }, error => {
-      console.error(`Error during PUT request for ...`,error)
+      console.error(`Error during PUT request for for contract #${id}`,error);
+      this.messageService.add({ severity: 'error', summary: 'Error:', detail: 'No se pudo actualizar el contrato' });
     })
   }
 
@@ -106,12 +110,11 @@ export class ContractListComponent implements OnInit{
   onRowEditSave(contract: Contract, index: number) {
       if (contract.contractdescription != '') {
           delete this.clonedContract[contract.contractid as number];
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Contract is updated' });
           return this.updateContract(contract,  contract.contractid);
       }
       this.contract [index]= this.clonedContract[contract.contractid as number];
       delete this.clonedContract[contract.contractid as number];
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid contract description' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Descripcion de contrato invalida' });
   }
 
 /**

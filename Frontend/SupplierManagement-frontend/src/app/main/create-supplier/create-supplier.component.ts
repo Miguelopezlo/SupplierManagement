@@ -36,9 +36,11 @@ export class CreateSupplierComponent implements OnInit{
  */
   private postNewSupplier(supplier: Supplier){
     this.supplierService.postNewSupplier(supplier).subscribe(response =>{
-      console.log(`POST Request for ... successful`, response);
+      console.log(`POST Request for new supplier successful`, response);
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Proveedor cargado' });
     }, error => {
-      console.error(`Error during POST request for ...`,error)
+      console.error(`Error during POST request for new supplier`,error);
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El proveedor no pudo ser cargado' });
     })
   }
 
@@ -53,9 +55,11 @@ export class CreateSupplierComponent implements OnInit{
     console.log('Reading file...');
     let file = event.files[0];
     this.supplierService.postSupplierList(file).subscribe(response =>{
-      console.log(`POST Request for ... successful`, response);
+      console.log(`POST Request for new suppliers successful`, response);
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Proveedores cargados' });
     }, error => {
-      console.error(`Error during POST request for ...`,error)
+      console.error(`Error during POST request for new suppliers`,error);
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Los proveedores no pudieron ser cargados' });
     }
     )
     form.clear();
@@ -82,12 +86,11 @@ export class CreateSupplierComponent implements OnInit{
   onRowEditSave(supplier: Supplier, index: number) {
       if (supplier.score >= 0) {
           delete this.clonedSuppliers[supplier.supplierid as number];
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Supplier is loaded' });
           return this.postNewSupplier(supplier);
       }
       this.suppliers[index] = this.clonedSuppliers[supplier.supplierid as number];
       delete this.clonedSuppliers[supplier.supplierid as number];
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Score' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Calificacion invalida' });
   }
 
 /**

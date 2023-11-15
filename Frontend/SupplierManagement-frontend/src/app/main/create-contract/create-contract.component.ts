@@ -36,9 +36,11 @@ export class CreateContractComponent implements OnInit{
  */
   private postNewContract(contract: Contract){
     this.contractService.postNewContract(contract).subscribe(response =>{
-      console.log(`POST Request for ... successful`, response);
+      console.log(`POST Request for new contract successful`, response);
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Contrato cargado' });
     }, error => {
-      console.error(`Error during POST request for ...`,error)
+      console.error(`Error during POST request for new contract`,error);
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El contrato no pudo ser cargado' });
     })
   }
 
@@ -64,12 +66,11 @@ export class CreateContractComponent implements OnInit{
   onRowEditSave(contract: Contract, index: number) {
       if (contract.contractdescription != '') {
           delete this.clonedContract[contract.contractid as number];
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Contract is loaded' });
           return this.postNewContract(contract);
       }
       this.contracts [index]= this.clonedContract[contract.contractid as number];
       delete this.clonedContract[contract.contractid as number];
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid contract description' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Descripcion de contrato invalida' });
   }
 
 /**

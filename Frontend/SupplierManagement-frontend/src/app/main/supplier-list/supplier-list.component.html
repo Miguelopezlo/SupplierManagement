@@ -1,7 +1,7 @@
 <p-toast></p-toast>
 <div class="content">
     <p-button label="Buscar por: "></p-button>
-    <p-dropdown [options]="dropdownOptions" [autoDisplayFirst]=true [(ngModel)]="selectedItem" (onChange)="onChangeDrop($event)" ></p-dropdown>
+    <p-dropdown [options]="dropdownOptions" [autoDisplayFirst]=false [(ngModel)]="selectedItem" (onChange)="onChangeDrop($event)" ></p-dropdown>
     <span class="p-input-icon-right">
         <i class="pi pi-search"></i>
         <input type="text" pInputText [(ngModel)]="value" (keydown.enter)="handleEnterKey()" [disabled]="boolInput"/>
@@ -62,10 +62,11 @@
             <td>
                 <div class="flex align-items-center justify-content-center gap-2">
                     <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(supplier)" class="p-button-rounded p-button-text"></button>
-                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-trash" (click)="onRowEditDelete(supplier,ri)" class="p-button-rounded p-button-text"></button>
                     <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(supplier,ri)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
                     <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(supplier, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    <button *ngIf="editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-trash" (click)="onRowEditDelete(supplier,ri)" class="p-button-rounded p-button-text"></button>
                 </div>
+                
             </td>
         </tr>
     </ng-template>

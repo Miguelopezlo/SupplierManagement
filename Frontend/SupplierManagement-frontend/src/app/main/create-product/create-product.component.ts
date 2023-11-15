@@ -18,7 +18,7 @@ export class CreateProductComponent implements OnInit{
 
   clonedProducts: { [s: number]: Product } = {};
 
-  columnHeadProducts: string[] = ['Nombre producto','Precio promedio','Criterio de seleccion','Actividad de seleccion','Acciones'];
+  columnHeadProducts: string[] = ['Nombre producto','Precio promedio','Criterio de seleccion','Actividad de seleccion'];
 
   constructor(private productService:ProductService, private messageService: MessageService){}
   
@@ -35,50 +35,29 @@ export class CreateProductComponent implements OnInit{
  */
   private postNewProduct(product: Product){
     this.productService.postNewProduct(product).subscribe(response =>{
-      console.log(`POST Request for ... successful`, response);
+      console.log(`POST Request for new product successful`, response);
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Producto cargado' });
     }, error => {
-      console.error(`Error during POST request for ...`,error)
+      console.error(`Error during POST request for new product`,error);
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'El producto no pudo ser cargado' });
     })
   }
 
-/**
- * The function "onRowEditInit" initializes a clone of a product object for editing purposes.
- * @param {Product} product - The parameter "product" is of type "Product".
- */
   onRowEditInit(product: Product) {
     this.clonedProducts[product.productId as number] = { ...product };
   }
 
-/**
- * The function `onRowEditSave` checks if the average price of a product is greater than or equal to
- * zero, and if so, saves the product and displays a success message; otherwise, it reverts the changes
- * and displays an error message.
- * @param {Product} product - The "product" parameter is an object of type "Product" which represents a
- * product. It contains various properties such as "productId", "averagePrice", etc.
- * @param {number} index - The `index` parameter represents the index of the product in the `products`
- * array that is being edited.
- * @returns the result of the `postNewProduct` function if the condition `product.averagePrice >= 0` is
- * true. Otherwise, it is not returning anything.
- */
+
   onRowEditSave(product: Product, index: number) {
-    // product.averagePrice >= 0
-      if (true) {
+      if (product.averagePrice != '') {
           delete this.clonedProducts[product.productId as number];
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is loaded' });
           return this.postNewProduct(product);
       }
       this.products[index] = this.clonedProducts[product.productId as number];
       delete this.clonedProducts[product.productId as number];
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Average Price' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Precio promedio invalido' });
   }
 
-/**
- * The function reverts the changes made to a product and cancels the editing process.
- * @param {Product} product - The "product" parameter is an object of type "Product". It represents the
- * product that was being edited before the cancel action was triggered.
- * @param {number} index - The index parameter represents the index of the product in the products
- * array that is being edited.
- */
   onRowEditCancel(product: Product, index: number) {
       this.products[index] = this.clonedProducts[product.productId as number];
       delete this.clonedProducts[product.productId as number];

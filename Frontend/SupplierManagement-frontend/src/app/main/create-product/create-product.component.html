@@ -41,20 +41,20 @@
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="product.selectionCriteria">
+                        <input pInputText type="text" [(ngModel)]="product.selectionCriteriaId">
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{product.selectionCriteria}}
+                        {{product.selectionCriteriaId}}
                     </ng-template>
                 </p-cellEditor>            
             </td>
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="product.activityName">
+                        <input pInputText type="text" [(ngModel)]="product.activityId">
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{product.activityName}}
+                        {{product.activityId}}
                     </ng-template>
                 </p-cellEditor>   
             </td>

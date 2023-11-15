@@ -6,4 +6,6 @@ export class Product {
     averagePrice: string;
     selectionCriteria: string;
     activityName: string;
+    selectionCriteriaId: number;
+    activityId: number;
 }

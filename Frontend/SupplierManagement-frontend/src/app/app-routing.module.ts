@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard} from './services/auth/auth.guard';
 import { SupplierListComponent } from './main/supplier-list/supplier-list.component';
-import { SupplierListIdComponent } from './main/supplier-list-id/supplier-list-id.component';
 import { ContractListComponent } from './main/contract-list/contract-list.component';
 import { ProductListComponent } from './main/product-list/product-list.component';
 import { CreateSupplierComponent } from './main/create-supplier/create-supplier.component';

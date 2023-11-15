@@ -23,7 +23,6 @@ import { SupplierListComponent } from './main/supplier-list/supplier-list.compon
 import { ProductListComponent } from './main/product-list/product-list.component';
 import { ContractListComponent } from './main/contract-list/contract-list.component';
 import { MenuComponent } from './main/menu/menu.component';
-import { SupplierListIdComponent } from './main/supplier-list-id/supplier-list-id.component';
 import { MainComponent } from './main/main.component';
 import { LoginComponent } from './login/login.component';
 import { MainModule } from './main/main.module';
@@ -40,7 +39,6 @@ import { HeaderComponent } from './main/header/header.component';
     ProductListComponent,
     ContractListComponent,
     MenuComponent,
-    SupplierListIdComponent,
     MainComponent,
     LoginComponent,
     CreateContractComponent,

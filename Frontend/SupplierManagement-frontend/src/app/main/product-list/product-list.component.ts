@@ -62,9 +62,11 @@ export class ProductListComponent implements OnInit{
   private getProductList(){
     this.productService.getProductList().subscribe(response =>{
       this.products = response;
-      console.log(`GET Request for ... successful`, response);
+      console.log(`GET Request for product list successful`, response);
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Productos encontrados' });
     }, error => {
-      console.error(`Error during GET request for ...`,error)
+      console.error(`Error during GET request for product list`,error);
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No hay productos en la base de datos' });
     })
   }
 
@@ -77,9 +79,11 @@ export class ProductListComponent implements OnInit{
   private getProductByProductId(productid: number){
     this.productService.getProductByProductId(productid).subscribe(response =>{
       this.products=response;
-      console.log(`GET Request for ... successful`, response);
+      console.log(`GET Request for product #${productid} successful`, response);
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Producto encontrado' });
     }, error => {
-      console.error(`Error during GET request for ...`,error)
+      console.error(`Error during GET request for ...`,error);
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Producto no encontrado' });
     })
   }
 
@@ -93,9 +97,11 @@ export class ProductListComponent implements OnInit{
   private getProductByCriteria(criteria: number){
     this.productService.getProductByCriteria(criteria).subscribe(response =>{
       this.products= response;
-      console.log(`GET Request for ... successful`, response);
+      console.log(`GET Request for criteria id# ${criteria} products successful`, response);
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Productos encontrados' });
     }, error => {
-      console.error(`Error during GET request for ...`,error)
+      console.error(`Error during GET request for criteria id# ${criteria} products`,error);
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Productos no encontrados' });
     })
   }
 
@@ -145,6 +151,8 @@ export class ProductListComponent implements OnInit{
         break;
       }
     }
+    this.products=[];
+    this.value='';
   }
 
 }
