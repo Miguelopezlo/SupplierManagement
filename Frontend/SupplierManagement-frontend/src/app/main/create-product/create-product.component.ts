@@ -18,7 +18,7 @@ export class CreateProductComponent implements OnInit{
 
   clonedProducts: { [s: number]: Product } = {};
 
-  columnHeadProducts: string[] = ['Nombre producto','Precio promedio','Criterio de seleccion','Actividad de seleccion'];
+  columnHeadProducts: string[] = ['Nombre producto','Precio promedio','Criterio de seleccion','Actividad de seleccion','Acciones'];
 
   constructor(private productService:ProductService, private messageService: MessageService){}
   
