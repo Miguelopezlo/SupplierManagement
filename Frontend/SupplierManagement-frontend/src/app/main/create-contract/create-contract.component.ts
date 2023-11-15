@@ -15,6 +15,8 @@ export class CreateContractComponent implements OnInit{
 
   contract: Contract= {} as Contract;
 
+  contractclean: Contract= {} as Contract;
+
   clonedContract: { [s: number]: Contract} ={};
 
   columnHeadContracts: string [] = ['Nombre producto','Fecha de inicio','Fecha de finalizacion','Estado del contrato','Id producto','Id proveedor','Acciones'];
@@ -66,6 +68,8 @@ export class CreateContractComponent implements OnInit{
   onRowEditSave(contract: Contract, index: number) {
       if (contract.contractdescription != '') {
           delete this.clonedContract[contract.contractid as number];
+          this.contracts =[];
+          this.contracts.push(this.contractclean);
           return this.postNewContract(contract);
       }
       this.contracts [index]= this.clonedContract[contract.contractid as number];

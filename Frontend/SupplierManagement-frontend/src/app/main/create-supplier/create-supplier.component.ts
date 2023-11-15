@@ -15,6 +15,8 @@ export class CreateSupplierComponent implements OnInit{
 
   supplier: Supplier= {} as Supplier;
   
+  supplierclean: Supplier= {} as Supplier;
+
   clonedSuppliers: { [s: number]: Supplier } = {};
 
   columnHeadSupplier: string[]= ['Nombre de empresa','Nombre de contacto','Dirección','Telefono','E-mail','Calificacion','Ciudad','Acciones'];
@@ -84,8 +86,11 @@ export class CreateSupplierComponent implements OnInit{
  * or equal to 0. Otherwise, it does not return anything.
  */
   onRowEditSave(supplier: Supplier, index: number) {
-      if (supplier.score >= 0) {
+
+      if (supplier.score >= 0 && supplier.score<=10) {
           delete this.clonedSuppliers[supplier.supplierid as number];
+          this.suppliers = [];
+          this.suppliers.push(this.supplierclean);
           return this.postNewSupplier(supplier);
       }
       this.suppliers[index] = this.clonedSuppliers[supplier.supplierid as number];

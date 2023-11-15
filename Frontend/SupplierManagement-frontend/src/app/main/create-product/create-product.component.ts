@@ -15,6 +15,7 @@ export class CreateProductComponent implements OnInit{
 
   product: Product= {} as Product;
   
+  productclean: Product= {} as Product;
 
   clonedProducts: { [s: number]: Product } = {};
 
@@ -51,6 +52,9 @@ export class CreateProductComponent implements OnInit{
   onRowEditSave(product: Product, index: number) {
       if (product.averagePrice != '') {
           delete this.clonedProducts[product.productId as number];
+          this.products =[]
+          this.products.push(this.productclean)
+
           return this.postNewProduct(product);
       }
       this.products[index] = this.clonedProducts[product.productId as number];
