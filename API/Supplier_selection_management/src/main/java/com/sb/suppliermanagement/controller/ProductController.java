@@ -4,6 +4,7 @@ import java.util.List;
 import com.sb.suppliermanagement.dto.ProductDTO;
 import com.sb.suppliermanagement.model.ContractInsert;
 import com.sb.suppliermanagement.model.Product;
+import com.sb.suppliermanagement.model.ProductInsert;
 import com.sb.suppliermanagement.repository.ProductJdbcRepository;
 import com.sb.suppliermanagement.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class ProductController {
 
     // Crea un nuevo producto
     @PostMapping("/create")
-    public ProductDTO save(@RequestBody ProductDTO product) {
+    public ProductInsert save(@RequestBody ProductInsert product) {
     	return repository.save(product);
     }
 }
